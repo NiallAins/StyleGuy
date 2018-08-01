@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <title>StyleGuy</title>
+    <link rel="stylesheet" type="text/css" href="main.min.css"/>
+</head>
+
+<body keyboard-nav="off">
+    <div app class="contain --sty">
+        <v-style>
+            .preview {
+                {{ cssGlobal }}
+            }
+        </v-style>
+        
+        <header class="row --sty">
+            <ul role="menubar" v-on:click="generateCss()">
+                <li role="menuitem"
+                    tabindex="0"
+                    v-on:click="tab = 'edit'"
+                    v-bind:class="{ selected : tab === 'edit' }"
+                > edit </li>
+                <li role="menuitem"
+                    tabindex="0"
+                    v-on:click="tab = 'view'"
+                    v-bind:class="{ selected : tab === 'view' }"
+                > view </li>
+                <li role="menuitem"
+                    tabindex="0"
+                    v-on:click="tab = 'cssmin'"
+                    v-bind:class="{ selected : tab === 'cssmin' }"
+                > min.css </li>
+                <li role="menuitem"
+                    tabindex="0"
+                    v-on:click="tab = 'config'"
+                    v-bind:class="{ selected : tab === 'config' }"
+                > config </li>
+            </ul>
+        </header>
+        
+        <main>
+            <section v-show="tab === 'view' || tab === 'edit'" class="row fill-height">
+                <nav class="col --sty">
+                    <ul role="menu">
+                        <li role="menuitem"
+                            tabindex="0"
+                            v-for="(group, g_label, i) in menu"
+                            v-if="tab === 'edit' || groupHasItems(group)"
+                            v-on:click="menuGroup = g_label"
+                            v-bind:class="{ selected : menuGroup === g_label }"
+                        >
+                            {{ g_label }}
+                            <ul role="menu">
+                                <li role="menuitem"
+                                    v-bind:tabindex="menuGroup === g_label ? 0 : -1"
+                                    v-for="(item, i_label, j) in group"
+                                    v-if="tab == 'edit' || item.style"
+                                    v-on:click="menuItem = i_label; page = menu[menuGroup][menuItem]; generateCss();"
+                                    v-bind:class="{ selected : menuItem === i_label }"
+                                >
+                                    {{ i_label }}
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            
+                <section class="col page">
+                    <template v-if="menuItem === 'color'">
+                        <color-editor
+                            v-bind:editable="tab === 'edit'"
+                            v-model="page"
+                        ></color-editor>
+                    </template>
+                    <template v-else>
+                        <element-editor
+                            v-for="(el, index) in page"
+                            v-if="tab === 'edit' || el.style"
+                            v-bind:editable="tab === 'edit'"
+                            v-model="el"
+                            v-on:add-element="addElement(page, index, $event)"
+                        ></element-editor>
+                    </template>
+                    <div v-if="!cssmin && tab === 'view'" class="empty-error --sty">
+                        <h2>No styles have been added yet</h2>
+                    </div>
+                </section>
+            </section>
+
+            <section v-show="tab === 'cssmin'" class="row --sty">
+                <div class="col-10 col-off-1">
+                    <code class="cssmin">
+                        {{ cssmin }}
+                        <div v-if="!cssmin"> No styles have been added yet </div>
+                    </code>
+                </div>
+            </section>
+
+            <section v-show="tab === 'config'" class="row --sty">
+
+            </section>
+        </main>
+    </div>
+
+    <script src="js/sass.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+$icon : '.--sty i';
+
+#{$icon} {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    background-color: var(--c-prim);
+    position: relative;
+    border-radius: 100%;
+  
+    &.sm {
+      transform: scale(0.75, 0.75);
+    }
+  
+    &.lg {
+      transform: scale(1.5, 1.5);
+    }
+}
+  
+#{$icon}.add {
+    &:after, &:before {
+    content: '';
+    width: 17px;
+    height: 4px;
+    border-radius: 4px;
+    background-color: white;
+    position: absolute;
+    top: 13px;
+    left: 6px;
+    }
+
+    &:after {
+    transform: rotate(90deg);
+    }
+}
+
+#{$icon}.cancel {
+    &:after, &:before {
+        content: '';
+        width: 17px;
+        height: 4px;
+        border-radius: 4px;
+        background-color: white;
+        position: absolute;
+        top: 13px;
+        left: 6px;
+    }
+
+    &:after {
+        transform: rotate(45deg);
+    }
+
+    &:before {
+        transform: rotate(-45deg);
+    }
+}
+
+#{$icon}.accept {
+    &:after {
+        content: '';
+        width: 5px;
+        height: 14px;
+        border: 3px solid white;
+        border-width: 0 3px 3px 0;
+        border-radius: 4px 0;
+        position: absolute;
+        top: 5px;
+        left: 11px;
+        transform: rotate(45deg);
+    }
+}
+
+#{$icon}.edit {
+    &:before {
+        content: '';
+        position: absolute;
+        top: 17px;
+        left: 7px;
+        width: 5px;
+        height: 5px;
+        background-color: white;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 6px;
+        left: 12px;
+        width: 6px;
+        height: 14px;
+        background-color: white;
+        border-bottom: 1px solid var(--c-prim);
+        transform: rotate(45deg);
+    }
+}
+
+#{$icon}.caret-v {
+    background-color: transparent;
+
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        border: 8px solid transparent;
+    }
+
+    &:before {
+        top: -3px;
+        left: 7px;
+        border-bottom-color: white;
+    }
+
+    &:after {
+        top: 16px;
+        left: 7px;
+        border-top-color: white;
+    }
+
+    &.dark {
+        &:before {
+            border-bottom-color: var(--c-editor);
+        }
+
+        &:after {
+            border-top-color: var(--c-editor);
+        }
+    }
+}

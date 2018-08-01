@@ -1,0 +1,214 @@
+.element-editor {
+    .center-preview {
+      overflow: auto;
+      text-align: center;
+  
+      &::-webkit-scrollbar {
+        background-color: #333;
+        height: 8px;
+        border-radius: 2px;
+      }
+      
+      &::-webkit-scrollbar-corner {
+        background-color: transparent;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: #fff4;
+        border-radius: 2px;
+        
+        
+        &:hover {
+          background-color: #fff9;
+        }
+      }
+    }
+  
+    .preview {
+      display: inline-block;
+    }
+  
+    .--sty .css-edit {
+      ul {
+        padding: 0;
+        overflow: auto;
+        margin: 0;
+        list-style: none;
+        
+        li {
+          cursor: pointer;
+          float: left;
+          background-color: var(--c-editor-light);
+          color: white;
+          width: 80px;
+          padding: 8px;
+          border-radius: 6px 6px 0 0;
+          text-transform: uppercase;
+          font-size: 10px;
+  
+          span {
+            font-size: 9px;
+            opacity: 0.7;
+          }
+          
+          &:last-child {
+            border-right-width: 2px;
+          }
+          
+          &.selected {
+            cursor: default;
+            background-color: var(--c-editor);
+          }
+        }
+      }
+      
+      p {
+        margin: 0;
+        width: calc(100% - 21px);
+        height: 20px;
+        position: absolute;
+        z-index: 10;
+        left: 8px;
+        background-color: #333;
+        
+        &:first-child {
+          top: 6px;
+        }
+        
+        &:last-child {
+          bottom: 9px;
+        }
+      }
+  
+      code {
+        min-height: 200px;
+        position: relative;
+        border-top-left-radius: 0;
+      }
+      
+      textarea {
+        background-color: transparent;
+        resize: none;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        line-height: 16px;
+        color: white;
+        font-family: "Courier New";
+        width: calc(100% - 13px);
+        height: calc(100% - 10px);
+        position: absolute;
+        top: 6px;
+        left: 8px;
+        padding: 20px;
+        padding-right: 0;
+        white-space: nowrap;
+        overflow: auto;
+        
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        
+        &::-webkit-scrollbar-corner {
+          background-color: transparent;
+        }
+  
+        &::-webkit-scrollbar-thumb {
+          background-color: #fff4;
+          
+          &:hover {
+            background-color: #fff9;
+          }
+        }
+      }
+    }
+  
+    $add-btn-ani : 0.2s;
+    div.--sty .add-varient {
+      transition: all $add-btn-ani, overflow 0s linear $add-btn-ani;
+      width: 120px;
+      height: 36px;
+      padding: 4px 10px;
+      margin-top: 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+      overflow: hidden;
+      
+      button.add-element {
+        outline: none;
+        text-align: left;
+        width: 140px;
+        height: 44px;
+        padding: 8px 10px;      
+        margin: -4px 0 0 -10px;
+      }
+  
+      i {
+        transition: transform $add-btn-ani, background-color $add-btn-ani;
+        margin-right: 10px;
+      }
+  
+      &:not(.active):hover {
+        background-color: var(--c-prim-light);
+        color: white;
+  
+        button.add-element i {
+          background-color: var(--c-prim-light);
+        }
+      }
+  
+      &.active {
+        transition: all $add-btn-ani;
+        height: 142px;
+        width: 512px;
+        background-color: var(--c-prim);
+        color: white;
+  
+        button.add-element {
+          color: white;
+  
+          i {
+            transform: rotate(45deg);
+          }
+        }
+      }
+  
+      label {
+        display: block;
+        margin: 6px 0;
+        font-weight: bold;
+      }
+  
+      input {
+        display: block;
+        width: 100%;
+        margin: 6px 0;
+        border: 0;
+        border-radius: 2px;
+        padding: 6px;
+        font-size: 14px;
+      }
+  
+      span {
+        position: relative;
+        top: 20px;
+        font-weight: bold;
+        font-style: italic;
+      }
+  
+      button.create-element {
+        width: 80px;
+        padding: 6px;
+        border: 1px solid var(--c-prim-light);
+        border-radius: 4px;
+        margin-top: 5px;
+        text-align: center;
+  
+        &:hover {
+          background-color: var(--c-prim-light);
+        }
+      }
+    }
+  }

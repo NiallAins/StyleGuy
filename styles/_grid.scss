@@ -1,0 +1,77 @@
+$gutter: 15px;
+$colCount: 12;
+
+.contain {
+  padding: 0 $gutter;
+}
+
+.row {
+  margin: 0 ($gutter * -1);
+  
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  &.fill-height {
+    display: table;
+    table-layout: fixed;
+    width: calc(100% + #{$gutter * 2});
+    
+    >[class^="col-"] {
+      display: table-cell;
+      float: none;
+      vertical-align: top;
+    }
+    
+    &.vert-center>[class^="col-"] {
+      vertical-align: middle;
+    }
+  }
+
+  &.no-pad-v [class|="col"] {
+    padding: 0 $gutter;
+  }
+}
+
+.col, [class^="col-"] {
+  float: left;
+  box-sizing: border-box;
+  padding: $gutter;
+  
+  @for $i from 1 through $colCount {
+    &.col-#{$i} { width: percentage($i / $colCount) }
+  }
+
+  @for $i from 1 through $colCount {
+    &.col-off-#{$i} { margin-left: percentage($i / $colCount) }
+  }
+
+  &.push-right {
+    float: right;
+  }
+
+  &.content-right {
+    text-align: right;
+  }
+
+  &.no-pad   { padding: 0; }
+  &.no-pad-v { padding: 0 $gutter; }
+  &.no-pad-h { padding: $gutter 0; }
+  &.no-pad-t { padding: 0 $gutter $gutter; }
+  &.no-pad-b { padding: $gutter $gutter 0; }
+  &.no-pad-l { padding: $gutter $gutter $gutter 0; }
+  &.no-pad-r { padding: $gutter 0 $gutter $gutter; }
+
+  &[class|="pad"] {
+    padding: 0;
+
+    &.pad-v { padding: $gutter 0; }
+    &.pad-h { padding: 0 $gutter; }
+    &.pad-t { padding-top:    $gutter; }
+    &.pad-b { padding-bottom: $gutter; }
+    &.pad-l { padding-left:   $gutter; }
+    &.pad-r { padding-right:  $gutter; }
+  }
+}
