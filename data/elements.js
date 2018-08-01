@@ -1,4 +1,4 @@
-export default {
+define({
   "theme" : {
     "color" : [
       {"name" : "primary", "ref" : "c-prim", "hex" : "#000000", "hsl" : [0, 0, 0]},
@@ -107,4 +107,4 @@ export default {
       { "selector": "i.fa", "markup": "<i class=\"fa fa-calendar\"></i>" }
     ]
   }
-}
+});

@@ -1,4 +1,4 @@
-export default {
+Vue.component('color-editor', {
 	props: [
 		'editable',
 		'value'
@@ -68,4 +68,4 @@ export default {
 			this.pickerOpen = -1;
 		}
 	}
-};
+});

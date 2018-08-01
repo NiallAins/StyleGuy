@@ -1,4 +1,4 @@
-export default {
+Vue.component('color-picker', {
 	props: [
 		'value'
 	],
@@ -238,4 +238,4 @@ export default {
 			return p;
 		}
 	}
-};
+});

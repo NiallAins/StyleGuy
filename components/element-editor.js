@@ -1,4 +1,4 @@
-export default {
+Vue.component('element-editor', {
 	props: [
 			'editable',
 			'value'
@@ -114,4 +114,4 @@ export default {
 			app.$data.sass.compile(scss, styleObj => this.value.style = styleObj.text);
 		}
 	}
-};
+});
