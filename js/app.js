@@ -27,16 +27,16 @@ requirejs([
 	new Vue({
 		el: '[app]',
 		data: {
-			loaded : false,
-			cssmin : '', 
-			cssGlobal : '',
-			sassInject : '',
-			tab : 'edit',
-			menuGroup : initGroup,
-			menuItem :  initItem,
-			page : elements[initGroup][initItem],
-			menu : elements,
-			sassCompiler : new Sass()
+			loaded 		: false,
+			cssmin 		: '', 
+			cssGlobal 	: '',
+			sassInject 	: '',
+			tab 		: 'edit',
+			menuGroup 	: initGroup,
+			menuItem 	: initItem,
+			page 		: elements[initGroup][initItem],
+			menu 		: elements,
+			sassCompile : new Sass()
 		},
 		created : function() {
 			this.setGlobalCss();
@@ -59,23 +59,29 @@ requirejs([
 				for(let group in elements) {
 					for (let item in elements[group]) {
 						if (group === 'theme' && item === 'color') {
-							this.cssmin += elements[group][item].reduce((str, c) => str + `--${c.ref}:${c.hex};`, ':root{') + '}';
+							this.cssmin += elements[group][item].reduce(
+								(str, c) => str + `--${c.ref}:${c.hex};`, 
+								':root{'
+							) + '}';
 						} else {
-							this.cssmin += elements[group][item].reduce((str, i) => str + i.style || '', '');
+							this.cssmin += elements[group][item].reduce(
+								(str, i) => str + i.style || '',
+								''
+							);
 						}
 					}
 				}
 			},
 			compileSass : function(item, index, scss) {
-				this.sassCompiler.compile(
+				this.sassCompile.compile(
 					this.sassInject + scss,
 					styleObj => item[index].style = styleObj.text
 				); 
 			},
 			groupHasItems : function(group) {
 				for(let item in group) {
-					if (group[item].style) {
-					return true;
+					if (group[item].some(el => el.style || el.hex)) {
+						return true;
 					}
 				}
 				return false;

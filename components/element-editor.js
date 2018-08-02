@@ -12,28 +12,34 @@ Vue.component('element-editor', {
 				<div class="col-8 no-pad-b --sty">
 					<div class="css-edit" v-if="editable">
 						<ul role="tablist">
-							<li role="tab"
-								tabIndex="0"
+							<li role		="tab"
+								tabIndex	="0"
 								v-bind:class="{ selected : editMode === 'css' }"
-								v-on:click="editMode = 'css'"
+								v-on:click	="editMode = 'css'"
 							>
 								css <span>/ scss</span>
 							</li>
-							<li role="tab"
-								tabIndex="0"
+							<li role		="tab"
+								tabIndex	="0"
 								v-bind:class="{ selected : editMode === 'html' }"
-								v-on:click="editMode = 'html'"
+								v-on:click	="editMode = 'html'"
 							>
 								html
 							</li>
 						</ul>
 						<code v-show="editMode === 'css'">
 							<p>{{ value.selector }} {</p>
-								<textarea spellcheck="false" v-on:blur="compileSass($event.target.value)"></textarea>
+								<textarea
+									spellcheck="false"
+									v-on:blur="compileSass($event.target.value)"
+								></textarea>
 							<p>}</p>
 						</code>
 						<code v-show="editMode === 'html'">
-							<textarea v-model="value.markup" spellcheck="false"></textarea>
+							<textarea
+								spellcheck="false"
+								v-model="value.markup"
+							></textarea>
 						</code>
 					</div>
 
@@ -44,18 +50,26 @@ Vue.component('element-editor', {
 			</div>
 			<div class="row" v-if="editable">
 				<div class="col-8 col-off-4 no-pad-t --sty">
-					<div class="add-varient" v-bind:class="{ active : activeAdd }">
-						<button v-on:click="activeAdd = !activeAdd" class="add-element">
+					<div
+						class="add-varient"
+						v-bind:class="{ active : activeAdd }"
+					>
+						<button
+							class="add-element"
+							v-on:click="activeAdd = !activeAdd"
+						>
 							<i class="add"></i> Add varient
 						</button>
-						<div v-show="activeAdd" class="row no-pad-v">
+						<div 
+							v-show="activeAdd"
+							class="row no-pad-v"
+						>
 							<div class="col-5">
 								<label for="newClass"> Class name </label>
 								<input
-									type="text"
-									v-model="addClass"
-									v-on:
-									placeholder="ex. secondary"
+									type		="text"
+									v-model		="addClass"
+									placeholder	="ex. secondary"
 								/>
 							</div>
 							<div class="col-1">
@@ -64,15 +78,20 @@ Vue.component('element-editor', {
 							<div class="col-6">
 								<label for="newClass"> Css selector </label>
 								<input
-									type="text"
-									v-model="addSelector"
+									type	="text"
+									v-model	="addSelector"
 									v-bind:placeholder="'ex. nav > ' + value.selector + '.menu-item'"
 								/> 
 							</div>
 						</div>
 						<div class="row no-pad-v">
 							<div class="col-12 content-right">
-								<button class="create-element" v-on:click="addElement()"> Create </button>
+								<button
+									class="create-element"
+									v-on:click="addElement()"
+								>
+									Create
+								</button>
 							</div>
 						</div>
 					</div>
@@ -86,10 +105,10 @@ Vue.component('element-editor', {
 	],
 	data : function() {
 		return {
-			editMode: 'css',
-			activeAdd: false,
-			addClass: '',
-			addSelector: ''
+			editMode	: 'css',
+			activeAdd	: false,
+			addClass	: '',
+			addSelector	: ''
 		}
 	},
 	watch : {

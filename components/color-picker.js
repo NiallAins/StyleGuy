@@ -1,70 +1,115 @@
 Vue.component('color-picker', {
 	template: `
 		<div class="color-picker">
-			<div
-				class="bg-mask"
-				v-on:click="close(false)"
-			></div>
+			<div class="bg-mask" v-on:click="close(false)"></div>
 			<div class="modal">
 				<div class="sample-contain">
 					<div
-						class="sample"
-						v-bind:style="{
+						class			="sample"
+						v-bind:editmode	="editMode"
+						v-bind:style	="{
 							backgroundColor : value,
 							color : l / a > 50  ? 'black' : 'white' 
 						}"
-						v-bind:editmode="editMode"
 					>
 						<div class="hsl">
 							hsl{{ a < 1 ? 'a' : '' }}(<input
-									   type="text" v-model="h" v-on:input="syncFrom('hsl')" v-on:keyup.up="h = limit(h, 361, 1)" v-on:keyup.down="h = limit(h, 361, -1)" />,
-								<input type="text" v-model="s" v-on:input="syncFrom('hsl')" v-on:keyup.up="s = limit(s, 101, 1)" v-on:keyup.down="s = limit(s, 101, -1)" />%,
-								<input type="text" v-model="l" v-on:input="syncFrom('hsl')" v-on:keyup.up="l = limit(l, 101, 1)" v-on:keyup.down="l = limit(l, 101, -1)" />%{{ a < 1 ? ',' : '' }}
-								<input type="text" v-model="a" v-if="a < 1" class="alpha" />)
+								type			="text"
+								v-model			="h"
+								v-on:input		="syncFrom('hsl')"
+								v-on:keyup.up	="h = limit(h, 361, 1)"
+								v-on:keyup.down	="h = limit(h, 361, -1)"
+							/>,
+							<input
+								type			="text"
+								v-model			="s"
+								v-on:input		="syncFrom('hsl')"
+								v-on:keyup.up	="s = limit(s, 101, 1)"
+								v-on:keyup.down	="s = limit(s, 101, -1)" 
+							/>%,
+							<input
+								type			="text"
+								v-model			="l"
+								v-on:input		="syncFrom('hsl')" 
+								v-on:keyup.up	="l = limit(l, 101, 1)"
+								v-on:keyup.down	="l = limit(l, 101, -1)"
+							/>%{{ a < 1 ? ',' : '' }}
+							<input
+								v-if	="a < 1"
+								type	="text"
+								class	="alpha"
+								v-model	="a"
+							 />)
 						</div>
 						<div class="rgb">
-							rgb{{ a < 1 ? 'a' : '' }}(<input
-									   type="text" v-model="r" v-on:input="syncFrom('rgb')" v-on:keyup.up="r = limit(r, 256, 1)" v-on:keyup.down="r = limit(r, 256, -1)" />,
-								<input type="text" v-model="g" v-on:input="syncFrom('rgb')" v-on:keyup.up="g = limit(g, 256, 1)" v-on:keyup.down="g = limit(g, 256, -1)" />,
-								<input type="text" v-model="b" v-on:input="syncFrom('rgb')" v-on:keyup.up="b = limit(b, 256, 1)" v-on:keyup.down="b = limit(b, 256, -1)" />{{ a < 1 ? ',' : '' }}
-								<input type="text" v-model="a" v-if="a < 1" class="alpha" />)
+							rgb{{ a < 1 ? 'a' : ''}}(<input
+								type			="text"
+								v-model			="r"
+								v-on:input		="syncFrom('rgb')"
+								v-on:keyup.up	="r = limit(r, 256, 1)"
+								v-on:keyup.down	="r = limit(r, 256, -1)"
+							/>,
+							<input
+								type			="text"
+								v-model			="g"
+								v-on:input		="syncFrom('rgb')"
+								v-on:keyup.up	="g = limit(g, 256, 1)"
+								v-on:keyup.down	="g = limit(g, 256, -1)"
+							/>,
+							<input
+								type			="text"
+								v-model			="b"
+								v-on:input		="syncFrom('rgb')"
+								v-on:keyup.up	="b = limit(b, 256, 1)"
+								v-on:keyup.down	="b = limit(b, 256, -1)"
+							/>{{ a < 1 ? ',' : '' }}
+							<input
+								v-if	="a < 1"
+								type	="text"
+								class	="alpha"
+								v-model	="a"
+							/>)
 						</div>
 						<div class="hex">
-							#<input type="text" v-model="hex" v-on:input="syncFrom('hex')"  />
+							#<input
+								type		="text"
+								v-model		="hex"
+								v-on:input	="syncFrom('hex')"
+							/>
 						</div>
-						<i	class="caret-v clear sm"
+						<i	class		="caret-v clear sm"
 							v-bind:class="{ dark : l / a >= 50 }"
-							v-on:click="editMode++; editMode %= 3;"
+							v-on:click	="editMode++; editMode %= 3;"
 						></i>
 					</div>
 				</div>
 				<div
-					class="palette"
-					v-on:click     ="setXY($event); syncFrom('hsl');"
-					v-on:mousedown ="dragging = true"
-					v-on:mouseup   ="dragging = false"
-					v-on:mouseleave="dragging = false"
-					v-on:mousemove ="dragging ? setXY($event) : ''; dragging ? syncFrom('hsl') : ''"
-					v-bind:style="{ backgroundColor : 'hsl(' + h +', 100%, 50%)' }"
+					class			="palette"
+					v-on:click		="setXY($event); syncFrom('hsl');"
+					v-on:mousedown	="dragging = true"
+					v-on:mouseup	="dragging = false"
+					v-on:mouseleave	="dragging = false"
+					v-on:mousemove	="dragging ? setXY($event) : ''; dragging ? syncFrom('hsl') : ''"
+					v-bind:style	="{ backgroundColor : 'hsl(' + h +', 100%, 50%)' }"
 				>
 					<div class="cursor" v-bind:style="{top: y + '%', left: x + '%'}"></div>
 				</div>
 				<input
-					class="hue-slider"
-					type="range"
-					v-model="h"
-					min="0"
-					max="360"
-					v-on:input="syncFrom('hsl')" 
+					class		="hue-slider"
+					type		="range"
+					v-model		="h"
+					min			="0"
+					max			="360"
+					v-on:input	="syncFrom('hsl')" 
 				/>
 				<div class="alpha-contain">
 					<input
-						class="alpha-slider"
-						type="range"
-						v-model="a"
-						min="0"
-						max="1"
-						step="0.02"
+						class		="alpha-slider"
+						type		="range"
+						v-model		="a"
+						min			="0"
+						max			="1"
+						step		="0.02"
 						v-bind:style="{
 							background  : 'linear-gradient(to right, transparent, ' + this.value.substr(0, 7) + ')',
 							borderColor : this.value.substr(0, 7)
@@ -73,10 +118,10 @@ Vue.component('color-picker', {
 				</div>
 				<div class="footer">
 					<button class="sty-btn sm" v-on:click="close(true)">
-							<i class="accept"></i> Select
+						<i class="accept"></i> Select
 					</button>
 					<button class="sty-btn sm" v-on:click="close(false)">
-							<i class="cancel"></i> Cancel
+						<i class="cancel"></i> Cancel
 					</button>
 				</div>
 			</div>
@@ -97,20 +142,24 @@ Vue.component('color-picker', {
 			x : 0,
 			y : 0,
 			hex : '',
-			editMode: 2,
-			dragging : false
+			editMode : 2,
+			dragging : false,
+			defaultHex : '2a7e7e'
 		}
 	},
 	created : function() {
 		if (this.value) {
 			this.hex = this.value[0] === '#' ? this.value.substr(1) : this.value;
 		} else {
-			this.hex = '2a7e7e';
+			this.hex = this.defaultHex;
 		}
 		this.syncFrom('hex');
 	},
 	watch : {
-		a : function() { this.setHex(); this.setValue(); }
+		a : function() {
+			this.setHex();
+			this.setValue();
+		}
 	},
 	methods : {
 		close : function(select) {
@@ -172,8 +221,8 @@ Vue.component('color-picker', {
 				this.l = Math.round(this.l);
 
 				let rh = this.h / 360,
-						rs = this.s / 100,
-						rl = this.l / 100;
+					rs = this.s / 100,
+					rl = this.l / 100;
 
 				if (this.s === 0){
 					this.r = this.g = this.b = rl;
@@ -193,37 +242,37 @@ Vue.component('color-picker', {
 		},
 		HSLFromRGB : function() {
 			let r1 = this.r / 255,
-					g1 = this.g / 255,
-					b1 = this.b / 255;
+				g1 = this.g / 255,
+				b1 = this.b / 255;
 			
 			let maxColor = Math.max(r1, g1, b1),
-					minColor = Math.min(r1, g1, b1);
+				minColor = Math.min(r1, g1, b1);
 
 			this.l = (maxColor + minColor) / 2,
 			this.s = 0,
 			this.h = 0;
 
 			if (maxColor !== minColor){
-					if (this.l < 0.5) {
-							this.s = (maxColor - minColor) / (maxColor + minColor);
-					} else {
-							this.s = (maxColor - minColor) / (2.0 - maxColor - minColor);
-					}
+				if (this.l < 0.5) {
+					this.s = (maxColor - minColor) / (maxColor + minColor);
+				} else {
+					this.s = (maxColor - minColor) / (2.0 - maxColor - minColor);
+				}
 
-					if (r1 === maxColor) {
-							this.h = (g1 - b1) / (maxColor - minColor);
-					} else if (g1 === maxColor) {
-							this.h = 2.0 + (b1 - r1) / (maxColor - minColor);
-					} else {
-							this.h = 4.0 + (r1 - g1) / (maxColor - minColor);
-					}
+				if (r1 === maxColor) {
+					this.h = (g1 - b1) / (maxColor - minColor);
+				} else if (g1 === maxColor) {
+					this.h = 2.0 + (b1 - r1) / (maxColor - minColor);
+				} else {
+					this.h = 4.0 + (r1 - g1) / (maxColor - minColor);
+				}
 			}
 		
 			this.l *= 100;
 			this.s *= 100;
 			this.h *= 60;
 			if (this.h < 0) {
-					this.h += 360;
+				this.h += 360;
 			}
 		},
 		setHex : function() {

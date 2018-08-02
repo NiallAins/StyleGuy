@@ -2,28 +2,27 @@ Vue.component('color-editor', {
 	template: `
 		<div class="color-editor row --sty">
 			<table class="col-8 col-off-1">
-				<tr
-					v-for="(color, index) in value"
+				<tr v-for		="(color, index) in value"
 					v-bind:class="{ selected : editing === index }"
 				>
 					<td class="c-name">
 						<input
-							type="text"
-							v-model="color.name"
-							v-bind:readonly="editing !== index"
+							type			="text"
+							v-model			="color.name"
+							v-bind:readonly	="editing !== index"
 						/>
 					</td>
 					<td class="c-ref">
 						--<input
-							type="text" 
-							v-model="color.ref"
-							v-bind:readonly="editing !== index"
+							type			="text" 
+							v-model			="color.ref"
+							v-bind:readonly	="editing !== index"
 						/>
 					</td>
 					<td
-						class="c-col"
+						class		="c-col"
 						v-bind:class="{ pickerOpen : pickerOpen === index }"
-						v-on:click="openPicker(index)"
+						v-on:click	="openPicker(index)"
 					>
 						<div class="hex-text">
 							{{ color.hex }}
@@ -34,8 +33,8 @@ Vue.component('color-editor', {
 					</td>
 					<td class="c-btns" v-if="editable">
 						<button
-							class="edit sty-btn"
-							v-on:click="editing = (editing < 0 ? index : -1)"
+							class		="edit sty-btn"
+							v-on:click	="editing = (editing < 0 ? index : -1)"
 							v-bind:class="{ done : editing === index }"
 						>
 							<span v-show="editing !== index">
@@ -46,17 +45,18 @@ Vue.component('color-editor', {
 							</span>
 						</button>
 						<button
-							class="add sty-btn"
-							v-show="editing !== index"
+							class		="add sty-btn"
+							v-bind:class="{ hide : editing === index }"
 						>
 							<i class="add"></i> Add Varient
 						</button>
 					</td>
 				</tr>
 				<color-picker
+					v-if		="pickerOpen > -1"
 					v-bind:style="{ top: (pickerOpen * 80) + 11 }"
-					v-if="pickerOpen > -1" v-model="pickerColor"
-					v-on:close="closePicker"
+					v-model		="pickerColor"
+					v-on:close	="closePicker"
 				></color-picker>
 			</table>
 		</div>
@@ -67,9 +67,9 @@ Vue.component('color-editor', {
 	],
 	data : function() {
 		return {
-			pickerOpen : -1,
+			pickerOpen 	: -1,
 			pickerColor : '',
-			editing : -1
+			editing 	: -1
 		}
 	},
 	watch : {
