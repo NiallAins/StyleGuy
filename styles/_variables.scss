@@ -1,0 +1,42 @@
+@function live-hsl($h, $s, $l) {
+    @return HSL(
+        var(#{ $h }),
+        var(#{ $s }),
+        var(#{ $l })
+    );
+}
+
+@function live-lighten($h, $s, $l, $percent) {
+    @return HSL(
+        var(#{ $h }),
+        var(#{ $s }),
+        calc(
+            var(#{ $l }) * #{ 1 + ($percent / 100) }
+        )
+    );
+}
+
+@function live-darken($h, $s, $l, $percent) {
+    @return HSL(
+        var(#{ $h }),
+        var(#{ $s }),
+        calc(
+            var(#{ $l }) * #{ 1 - ($percent / 100) }
+        )
+    );
+}
+
+$header-height: 51px;
+$nav-width: 200px;
+$modal-z : 20;
+
+:root {
+  --c-h: 210;
+  --c-s: 70%;
+  --c-l: 60%;
+  --c-prim : live-hsl(--c-h, --c-s, --c-l);
+  --c-prim-light : live-lighten(--c-h, --c-s, --c-l, 20);
+  --c-editor : #333;
+  --c-editor-light: #666;
+  --c-text : #333;
+}

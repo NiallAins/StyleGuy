@@ -13,18 +13,33 @@ Vue.component('color-editor', {
 	template: `
 		<div class="color-editor row --sty">
 			<table class="col-8 col-off-1">
-				<tr v-for="(color, index) in value" v-bind:class="{ selected : editing === index }">
+				<tr
+					v-for="(color, index) in value"
+					v-bind:class="{ selected : editing === index }"
+				>
 					<td class="c-name">
-						<input type="text" v-model="color.name" v-bind:readonly="editing !== index" />
+						<input
+							type="text"
+							v-model="color.name"
+							v-bind:readonly="editing !== index"
+						/>
 					</td>
 					<td class="c-ref">
-						--<input type="text" v-model="color.ref" v-bind:readonly="editing !== index" />
+						--<input
+							type="text" 
+							v-model="color.ref"
+							v-bind:readonly="editing !== index"
+						/>
 					</td>
-					<td class="c-col" v-bind:class="{ pickerOpen : pickerOpen === index }">
+					<td
+						class="c-col"
+						v-bind:class="{ pickerOpen : pickerOpen === index }"
+						v-on:click="openPicker(index)"
+					>
 						<div class="hex-text">
 							{{ color.hex }}
 						</div>
-						<div class="sample" v-on:click="openPicker(index)">
+						<div class="sample">
 							<div v-bind:style="{ backgroundColor: color.hex }"></div>
 						</div>
 					</td>

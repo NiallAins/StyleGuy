@@ -44,7 +44,7 @@
 					color: var(--c-text);
 				}
 
-				.sample {
+				.c-col {
 					cursor: pointer;
 				}
 
@@ -56,7 +56,7 @@
 
 		.color-picker {
 			z-index: 10;
-			right: 31px;
+			right: calc(30% - 222px);
 		}
 	}
 

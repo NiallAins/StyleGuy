@@ -3,7 +3,7 @@
   via emscripten 1.37.35 ()
  */
 
-(function (root, factory) {
+define(function (root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
     define([], factory);

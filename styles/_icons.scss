@@ -16,6 +16,10 @@ $icon : '.--sty i';
     &.lg {
       transform: scale(1.5, 1.5);
     }
+
+    &.clear {
+        background-color: transparent;
+    }
 }
   
 #{$icon}.add {
@@ -96,8 +100,6 @@ $icon : '.--sty i';
 }
 
 #{$icon}.caret-v {
-    background-color: transparent;
-
     &:before, &:after {
         content: '';
         position: absolute;

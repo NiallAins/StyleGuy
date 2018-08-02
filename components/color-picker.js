@@ -20,74 +20,86 @@ Vue.component('color-picker', {
 	},
 	template: `
 		<div class="color-picker">
-			<div class="sample-contain">
-				<div class="sample" v-bind:style="{ backgroundColor : value, color : l / a > 50  ? 'black' : 'white' }" v-bind:editmode="editMode">
-					<div class="hsl">
-						hsl{{ a < 1 ? 'a' : '' }}(
-							<input type="text" v-model="h" v-on:input="syncFrom('hsl')" />,
-							<input type="text" v-model="s" v-on:input="syncFrom('hsl')" />,
-							<input type="text" v-model="l" v-on:input="syncFrom('hsl')" />{{ a < 1 ? ',' : '' }}
-							<input type="text" v-model="a" v-if="a < 1" class="alpha" />                                          
-						)
-					</div>
-					<div class="rgb">
-						rgb{{ a < 1 ? 'a' : '' }}(
-							<input type="text" v-model="r" v-on:input="syncFrom('rgb')" />,
-							<input type="text" v-model="g" v-on:input="syncFrom('rgb')" />,
-							<input type="text" v-model="b" v-on:input="syncFrom('rgb')" />{{ a < 1 ? ',' : '' }}
-							<input type="text" v-model="a" v-if="a < 1" class="alpha" />                                          
-						)
-					</div>
-					<div class="hex">
-						# <input type="text" v-model="hex" v-on:input="syncFrom('hex')"  />
-					</div>
-					<i
-						class="caret-v sm"
-						v-bind:class="{ dark : l / a >= 50 }"
-						v-on:click="editMode++; editMode %= 3;"
-					></i>
-				</div>
-			</div>
 			<div
-				class="palette"
-				v-on:click     ="setXY($event); syncFrom('hsl');"
-				v-on:mousedown ="dragging = true"
-				v-on:mouseup   ="dragging = false"
-				v-on:mouseleave="dragging = false"
-				v-on:mousemove ="dragging ? setXY($event) : ''; dragging ? syncFrom('hsl') : ''"
-				v-bind:style="{ backgroundColor : 'hsl(' + h +', 100%, 50%)' }"
-			>
-				<div class="cursor" v-bind:style="{top: y + '%', left: x + '%'}"></div>
-			</div>
-			<input
-				class="hue-slider"
-				type="range"
-				v-model="h"
-				min="0"
-				max="360"
-				v-on:input="syncFrom('hsl')" 
-			/>
-			<div class="alpha-contain">
+				class="bg-mask"
+				v-on:click="close(false)"
+			></div>
+			<div class="modal">
+				<div class="sample-contain">
+					<div
+						class="sample"
+						v-bind:style="{
+							backgroundColor : value,
+							color : l / a > 50  ? 'black' : 'white' 
+						}"
+						v-bind:editmode="editMode"
+					>
+						<div class="hsl">
+							hsl{{ a < 1 ? 'a' : '' }}(
+								<input type="text" v-model="h" v-on:input="syncFrom('hsl')" />,
+								<input type="text" v-model="s" v-on:input="syncFrom('hsl')" />,
+								<input type="text" v-model="l" v-on:input="syncFrom('hsl')" />{{ a < 1 ? ',' : '' }}
+								<input type="text" v-model="a" v-if="a < 1" class="alpha" />                                          
+							)
+						</div>
+						<div class="rgb">
+							rgb{{ a < 1 ? 'a' : '' }}(
+								<input type="text" v-model="r" v-on:input="syncFrom('rgb')" />,
+								<input type="text" v-model="g" v-on:input="syncFrom('rgb')" />,
+								<input type="text" v-model="b" v-on:input="syncFrom('rgb')" />{{ a < 1 ? ',' : '' }}
+								<input type="text" v-model="a" v-if="a < 1" class="alpha" />                                          
+							)
+						</div>
+						<div class="hex">
+							# <input type="text" v-model="hex" v-on:input="syncFrom('hex')"  />
+						</div>
+						<i	class="caret-v clear sm"
+							v-bind:class="{ dark : l / a >= 50 }"
+							v-on:click="editMode++; editMode %= 3;"
+						></i>
+					</div>
+				</div>
+				<div
+					class="palette"
+					v-on:click     ="setXY($event); syncFrom('hsl');"
+					v-on:mousedown ="dragging = true"
+					v-on:mouseup   ="dragging = false"
+					v-on:mouseleave="dragging = false"
+					v-on:mousemove ="dragging ? setXY($event) : ''; dragging ? syncFrom('hsl') : ''"
+					v-bind:style="{ backgroundColor : 'hsl(' + h +', 100%, 50%)' }"
+				>
+					<div class="cursor" v-bind:style="{top: y + '%', left: x + '%'}"></div>
+				</div>
 				<input
-					class="alpha-slider"
+					class="hue-slider"
 					type="range"
-					v-model="a"
+					v-model="h"
 					min="0"
-					max="1"
-					step="0.02"
-					v-bind:style="{
-						background  : 'linear-gradient(to right, transparent, ' + this.value.substr(0, 7) + ')',
-						borderColor : this.value.substr(0, 7)
-					}"
+					max="360"
+					v-on:input="syncFrom('hsl')" 
 				/>
-			</div>
-			<div class="footer">
-				<button class="sty-btn sm" v-on:click="close(true)">
-						<i class="accept"></i> Select
-				</button>
-				<button class="sty-btn sm" v-on:click="close(false)">
-						<i class="cancel"></i> Cancel
-				</button>
+				<div class="alpha-contain">
+					<input
+						class="alpha-slider"
+						type="range"
+						v-model="a"
+						min="0"
+						max="1"
+						step="0.02"
+						v-bind:style="{
+							background  : 'linear-gradient(to right, transparent, ' + this.value.substr(0, 7) + ')',
+							borderColor : this.value.substr(0, 7)
+						}"
+					/>
+				</div>
+				<div class="footer">
+					<button class="sty-btn sm" v-on:click="close(true)">
+							<i class="accept"></i> Select
+					</button>
+					<button class="sty-btn sm" v-on:click="close(false)">
+							<i class="cancel"></i> Cancel
+					</button>
+				</div>
 			</div>
 		</div>
 	`,

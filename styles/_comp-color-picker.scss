@@ -1,9 +1,23 @@
 .--sty .color-picker {
   position: absolute;
-  padding: 10px 28px 10px 10px;
-  border: 1px solid var(--c-prim-light);
-  background-color: white;
-  border-radius: 6px;
+
+  .bg-mask {
+    position: fixed;
+    z-index: $modal-z - 1;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .modal {
+    position: relative;
+    z-index: $modal-z;
+    background-color: white;
+    padding: 10px 28px 10px 10px;
+    border: 1px solid var(--c-prim-light);
+    border-radius: 6px;
+  }
 
   .sample-contain {
     background-image: url('./assets/opac_bg.svg');
@@ -119,7 +133,8 @@
     display: block;
     width: 255px;
     height: 255px;
-    
+    cursor: pointer;
+
     &:after, &:before {
       content: '';
       width: 100%;

@@ -79,6 +79,7 @@
                             v-bind:editable="tab === 'edit'"
                             v-model="el"
                             v-on:add-element="addElement(page, index, $event)"
+                            v-on:compile-sass="compileSass(page, index, $event)"
                         ></element-editor>
                     </template>
                     <div v-if="!cssmin && tab === 'view'" class="empty-error --sty">
@@ -102,9 +103,8 @@
         </main>
     </div>
 
-    <script src="lib/sass.js"></script>
-    <script src="lib/vue.min.js"></script>
-    <script data-main="js/main" src="lib/require.js"></script>
+    <script src="js/lib/vue.min.js"></script>
+    <script data-main="js/init" src="js/lib/require.js"></script>
 </body>
 
 </html>
