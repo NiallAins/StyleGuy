@@ -62,8 +62,8 @@
 					background-color: var(--c-prim-light);
 				}
 
-				.done:hover,
-				.done:hover i {
+				.edit:hover,
+				.edit:hover i {
 					background-color: var(--c-prim);
 				}
 			}
@@ -80,6 +80,7 @@
 		font-size: 12px;
 	}
 
+	.c-ref,
 	.c-ref input {
 		font-size: 13px;
 		font-family: 'Courier New', Courier, monospace;
@@ -87,12 +88,18 @@
 		color: live-darken(--c-h, --c-s, --c-l, 30);
 	}
 
+
 	input {
 		padding: 5px;
 		margin-left: 2px;
 		border-radius: 4px;
 		border: none;
 		width: 80%;
+	}
+	
+	.c-ref input {
+		padding-left: 2px;
+		margin-left: 0;
 	}
 
 	.c-col {
@@ -126,5 +133,17 @@
 	.c-btns {
 		width: 30%;
 		text-align: right;
+		overflow: hidden;
+
+		.add {
+			position: relative;
+			opacity: 1;
+			transition: margin-right 0.2s, opacity 0.2s;
+
+			&.hide {
+				margin-right: -140px;
+				opacity: 0;
+			}
+		}
 	}
 }
