@@ -13,10 +13,40 @@ header.--sty.row {
     margin: 20px 0 0 0;
 }
 
-:not(.preview) main>section.row {
-    margin-top: 0;
+.loading-mask.--sty {
+    position: fixed;
+    left: 0;
+    top: $header-height;
+    z-index: $loading-mask-z;
+    height: calc(100vh - #{$header-height});
+    width: 100vw;
     background-color: white;
-    min-height: calc(100vh - #{$header-height});
+    opacity: 1;
+    transition: opacity 0.6s;
+
+    .loader {
+        position: absolute;
+        left: calc(50% - 40px);
+        top: 20%;
+    }
+
+    &.loaded {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+:not(.preview) main {
+    position: relative;
+
+    & > section.row {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: white;
+        margin-top: 0;
+        min-height: calc(100vh - #{$header-height});
+    }
 }
 
 header.--sty ul {

@@ -1,23 +1,4 @@
 Vue.component('color-picker', {
-	props: [
-		'value'
-	],
-	data : function() {
-		return {
-			h : 0,
-			s : 0,
-			l : 0,
-			r : 0,
-			g : 0,
-			b : 0,
-			a : 1,
-			x : 0,
-			y : 0,
-			hex : '',
-			editMode: 2,
-			dragging : false
-		}
-	},
 	template: `
 		<div class="color-picker">
 			<div
@@ -35,23 +16,21 @@ Vue.component('color-picker', {
 						v-bind:editmode="editMode"
 					>
 						<div class="hsl">
-							hsl{{ a < 1 ? 'a' : '' }}(
-								<input type="text" v-model="h" v-on:input="syncFrom('hsl')" />,
-								<input type="text" v-model="s" v-on:input="syncFrom('hsl')" />,
-								<input type="text" v-model="l" v-on:input="syncFrom('hsl')" />{{ a < 1 ? ',' : '' }}
-								<input type="text" v-model="a" v-if="a < 1" class="alpha" />                                          
-							)
+							hsl{{ a < 1 ? 'a' : '' }}(<input
+									   type="text" v-model="h" v-on:input="syncFrom('hsl')" v-on:keyup.up="h = limit(h, 361, 1)" v-on:keyup.down="h = limit(h, 361, -1)" />,
+								<input type="text" v-model="s" v-on:input="syncFrom('hsl')" v-on:keyup.up="s = limit(s, 101, 1)" v-on:keyup.down="s = limit(s, 101, -1)" />%,
+								<input type="text" v-model="l" v-on:input="syncFrom('hsl')" v-on:keyup.up="l = limit(l, 101, 1)" v-on:keyup.down="l = limit(l, 101, -1)" />%{{ a < 1 ? ',' : '' }}
+								<input type="text" v-model="a" v-if="a < 1" class="alpha" />)
 						</div>
 						<div class="rgb">
-							rgb{{ a < 1 ? 'a' : '' }}(
-								<input type="text" v-model="r" v-on:input="syncFrom('rgb')" />,
-								<input type="text" v-model="g" v-on:input="syncFrom('rgb')" />,
-								<input type="text" v-model="b" v-on:input="syncFrom('rgb')" />{{ a < 1 ? ',' : '' }}
-								<input type="text" v-model="a" v-if="a < 1" class="alpha" />                                          
-							)
+							rgb{{ a < 1 ? 'a' : '' }}(<input
+									   type="text" v-model="r" v-on:input="syncFrom('rgb')" v-on:keyup.up="r = limit(r, 256, 1)" v-on:keyup.down="r = limit(r, 256, -1)" />,
+								<input type="text" v-model="g" v-on:input="syncFrom('rgb')" v-on:keyup.up="g = limit(g, 256, 1)" v-on:keyup.down="g = limit(g, 256, -1)" />,
+								<input type="text" v-model="b" v-on:input="syncFrom('rgb')" v-on:keyup.up="b = limit(b, 256, 1)" v-on:keyup.down="b = limit(b, 256, -1)" />{{ a < 1 ? ',' : '' }}
+								<input type="text" v-model="a" v-if="a < 1" class="alpha" />)
 						</div>
 						<div class="hex">
-							# <input type="text" v-model="hex" v-on:input="syncFrom('hex')"  />
+							#<input type="text" v-model="hex" v-on:input="syncFrom('hex')"  />
 						</div>
 						<i	class="caret-v clear sm"
 							v-bind:class="{ dark : l / a >= 50 }"
@@ -103,6 +82,25 @@ Vue.component('color-picker', {
 			</div>
 		</div>
 	`,
+	props: [
+		'value'
+	],
+	data : function() {
+		return {
+			h : 0,
+			s : 0,
+			l : 0,
+			r : 0,
+			g : 0,
+			b : 0,
+			a : 1,
+			x : 0,
+			y : 0,
+			hex : '',
+			editMode: 2,
+			dragging : false
+		}
+	},
 	created : function() {
 		if (this.value) {
 			this.hex = this.value[0] === '#' ? this.value.substr(1) : this.value;
@@ -128,6 +126,13 @@ Vue.component('color-picker', {
 				this.x = this.s;
 				this.y = 100 - (this.l * (1 + (this.x / 100)));
 			}
+		},
+		limit : function(val, max, inc) {
+			val = (val + inc) % max;
+			if (val < 0) {
+				val += max;
+			}
+			return val;
 		},
 		setValue : function(e) {
 			this.value = '#' + this.hex;

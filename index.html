@@ -6,8 +6,8 @@
 </head>
 
 <body keyboard-nav="off">
-    <div app class="contain --sty">
-        <v-style>
+    <div app class="contain">
+        <v-style v-cloak>
             .preview {
                 {{ cssGlobal }}
             }
@@ -19,25 +19,37 @@
                     tabindex="0"
                     v-on:click="tab = 'edit'"
                     v-bind:class="{ selected : tab === 'edit' }"
-                > edit </li>
+                >
+                    edit
+                </li>
                 <li role="menuitem"
                     tabindex="0"
                     v-on:click="tab = 'view'"
                     v-bind:class="{ selected : tab === 'view' }"
-                > view </li>
+                >
+                    view
+                </li>
                 <li role="menuitem"
                     tabindex="0"
                     v-on:click="tab = 'cssmin'"
                     v-bind:class="{ selected : tab === 'cssmin' }"
-                > min.css </li>
+                >
+                    css.min
+                </li>
                 <li role="menuitem"
                     tabindex="0"
                     v-on:click="tab = 'config'"
                     v-bind:class="{ selected : tab === 'config' }"
-                > config </li>
+                >
+                    config
+                </li>
             </ul>
         </header>
-        
+
+        <div class="loading-mask --sty" v-bind:class="{ loaded: loaded }">
+            <div class="loader"></div>
+        </div>
+
         <main>
             <section v-show="tab === 'view' || tab === 'edit'" class="row fill-height">
                 <nav class="col --sty">
@@ -70,6 +82,7 @@
                         <color-editor
                             v-bind:editable="tab === 'edit'"
                             v-model="page"
+                            v-on:color-change="setGlobalCss"
                         ></color-editor>
                     </template>
                     <template v-else>
@@ -92,7 +105,7 @@
                 <div class="col-10 col-off-1">
                     <code class="cssmin">
                         {{ cssmin }}
-                        <div v-if="!cssmin"> No styles have been added yet </div>
+                        <div v-if="!cssmin" v-cloak> No styles have been added yet </div>
                     </code>
                 </div>
             </section>

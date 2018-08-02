@@ -1,16 +1,4 @@
 Vue.component('element-editor', {
-	props: [
-		'editable',
-		'value'
-	],
-	data : function() {
-		return {
-			editMode: 'css',
-			activeAdd: false,
-			addClass: '',
-			addSelector: ''
-		}
-	},
 	template: `
 		<div class="element-editor">
 			<div class="row fill-height vert-center">
@@ -41,7 +29,7 @@ Vue.component('element-editor', {
 						</ul>
 						<code v-show="editMode === 'css'">
 							<p>{{ value.selector }} {</p>
-							<textarea spellcheck="false" v-on:blur="compileSass($event.target.value)"></textarea>
+								<textarea spellcheck="false" v-on:blur="compileSass($event.target.value)"></textarea>
 							<p>}</p>
 						</code>
 						<code v-show="editMode === 'html'">
@@ -92,6 +80,18 @@ Vue.component('element-editor', {
 			</div>
 		</div>
 	`,
+	props: [
+		'editable',
+		'value'
+	],
+	data : function() {
+		return {
+			editMode: 'css',
+			activeAdd: false,
+			addClass: '',
+			addSelector: ''
+		}
+	},
 	watch : {
 		value : function(val) {
 			this.$emit('input', this.value);
@@ -185,5 +185,5 @@ Vue.component('element-editor', {
 				(rel === '>' ? ' <!-- Direct Child -->' : '') +
 				(rel === '+' ? ' <!-- Direct Sibling -->' : '');
 		}
-    }
+	}
 });
