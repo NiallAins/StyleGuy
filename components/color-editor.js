@@ -1,15 +1,4 @@
 Vue.component('color-editor', {
-	props: [
-		'editable',
-		'value'
-	],
-	data : function() {
-		return {
-			pickerOpen : -1,
-			pickerColor : '',
-			editing : -1
-		}
-	},
 	template: `
 		<div class="color-editor row --sty">
 			<table class="col-8 col-off-1">
@@ -44,10 +33,22 @@ Vue.component('color-editor', {
 						</div>
 					</td>
 					<td class="c-btns" v-if="editable">
-						<button class="edit sty-btn" v-on:click="editing = (editing < 0 ? index : -1)">
-							<i class="edit"></i> Edit
+						<button
+							class="edit sty-btn"
+							v-on:click="editing = (editing < 0 ? index : -1)"
+							v-bind:class="{ done : editing === index }"
+						>
+							<span v-show="editing !== index">
+								<i class="edit"></i> Edit
+							</span>
+							<span v-show="editing === index">
+								<i class="accept"></i> Done
+							</span>
 						</button>
-						<button class="add sty-btn">
+						<button
+							class="add sty-btn"
+							v-show="editing !== index"
+						>
 							<i class="add"></i> Add Varient
 						</button>
 					</td>
@@ -60,6 +61,17 @@ Vue.component('color-editor', {
 			</table>
 		</div>
 	`,
+	props: [
+		'editable',
+		'value'
+	],
+	data : function() {
+		return {
+			pickerOpen : -1,
+			pickerColor : '',
+			editing : -1
+		}
+	},
 	watch : {
 		value : function(val) {
 				this.$emit('input', this.value);
@@ -79,6 +91,7 @@ Vue.component('color-editor', {
 		closePicker : function(e) {
 			if (e === 'select') {
 				this.value[this.pickerOpen].hex = this.pickerColor;
+				this.$emit('color-change');
 			}
 			this.pickerOpen = -1;
 		}

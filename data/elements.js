@@ -1,12 +1,10 @@
 define({
   "theme" : {
     "color" : [
-      {"name" : "primary", "ref" : "c-prim", "hex" : "#000000", "hsl" : [0, 0, 0]},
-      {"name" : "secondary", "ref" : "c-sec", "hex" : "#ffffff", "hsl" : [0, 0, 100]},
-      {"name" : "tertiary", "ref" : "c-tert", "hex" : "#888888", "hsl" : [0, 0, 50]}
+      {"name" : "primary", "ref" : "c-prim", "hex" : "#000000"}
     ],
     "fonts" : [
-      {"name" : "secondary", "ref" : "c-sec", "hex" : "000000", "hsl" : [0, 100, 100]},        
+      {"name" : "secondary", "ref" : "c-sec", "hex" : "000000"},        
     ]
   },
   "text" : {

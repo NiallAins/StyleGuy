@@ -46,10 +46,25 @@
 
 				.c-col {
 					cursor: pointer;
+					.sample div {
+						transition: box-shadow 0.2s;
+					}
+
+					&:hover .sample div,
+					&.pickerOpen .sample div {
+						border-radius: 2px;
+						box-shadow: 0 0 0 8px rgb(83, 152, 224);
+					}
 				}
 
 				button i {
+					transition: background-color 0.2s;
 					background-color: var(--c-prim-light);
+				}
+
+				.done:hover,
+				.done:hover i {
+					background-color: var(--c-prim);
 				}
 			}
 		}
