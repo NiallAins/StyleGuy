@@ -175,8 +175,7 @@
       background-color: transparent;
     }
 
-    &::-webkit-slider-thumb,
-    &::-moz-range-thumb {
+    &::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
       width: 18px;
