@@ -8,52 +8,50 @@
 <body keyboard-nav="off">
     <div app class="contain">
         <v-style v-cloak>
-            .preview {
-                {{ cssGlobal }}
-            }
+            {{ cssmin }}
         </v-style>
         
         <header class="row --sty">
-            <ul role="menubar" v-on:click="generateCss()">
-                    <li role        ="menuitem"
-                        tabindex    ="0"
-                        v-on:click  ="tab = 'project'"
-                        v-bind:class="{ selected : tab === 'project' }"
+            <ul role    ="menubar">
+                    <li role    ="menuitem"
+                        tabindex="0"
+                        @click  ="tab = 'project'"
+                        :class  ="{ selected : tab === 'project' }"
                     >
                     project
                 </li>
-                <li role        ="menuitem"
-                    tabindex    ="0"
-                    v-on:click  ="tab = 'edit'"
-                    v-bind:class="{ selected : tab === 'edit' }"
+                <li role    ="menuitem"
+                    tabindex="0"
+                    @click  ="tab = 'edit'"
+                    :class  ="{ selected : tab === 'edit' }"
                 >
                     edit
                 </li>
-                <li role        ="menuitem"
-                    tabindex    ="0"
-                    v-on:click  ="tab = 'view'"
-                    v-bind:class="{ selected : tab === 'view' }"
+                <li role    ="menuitem"
+                    tabindex="0"
+                    @click  ="tab = 'view'"
+                    :class  ="{ selected : tab === 'view' }"
                 >
                     view
                 </li>
-                <li role        ="menuitem"
-                    tabindex    ="0"
-                    v-on:click  ="tab = 'export'"
-                    v-bind:class="{ selected : tab === 'export' }"
+                <li role    ="menuitem"
+                    tabindex="0"
+                    @click  ="tab = 'export'"
+                    :class  ="{ selected : tab === 'export' }"
                 >
                     export
                 </li>
-                <li role        ="menuitem"
-                    tabindex    ="0"
-                    v-on:click  ="tab = 'about'"
-                    v-bind:class="{ selected : tab === 'about' }"
+                <li role    ="menuitem"
+                    tabindex="0"
+                    @click  ="tab = 'about'"
+                    :class  ="{ selected : tab === 'about' }"
                 >
                     ?
                 </li>
             </ul>
         </header>
 
-        <div class="loading-mask --sty" v-bind:class="{ loaded: loaded }">
+        <div class="loading-mask --sty" :class="{ loaded: loaded }">
             <div class="loader"></div>
         </div>
 
@@ -81,21 +79,24 @@
             <section v-show="tab === 'view' || tab === 'edit'" class="row fill-height">
                 <nav class="col --sty">
                     <ul role="menu">
-                        <li role        ="menuitem"
-                            v-if        ="tab === 'edit' || groupHasItems(group)"
-                            v-for       ="(group, g_label, i) in menu"
-                            tabindex    ="0"
-                            v-on:click  ="menuGroup = g_label"
-                            v-bind:class="{ selected : menuGroup === g_label }"
+                        <li role    ="menuitem"
+                            v-if    ="tab === 'edit' || groupHasItems(group)"
+                            v-for   ="(group, g_label, i) in menu"
+                            tabindex="0"
+                            @click  ="menuGroup = g_label"
+                            :class  ="{ selected : menuGroup === g_label }"
                         >
                             {{ g_label }}
                             <ul role="menu">
-                                <li role            ="menuitem"
-                                    v-if            ="tab == 'edit' || item.some(e => e.style || e.hex)"
-                                    v-for           ="(item, i_label, j) in group"
-                                    v-bind:tabindex ="menuGroup === g_label ? 0 : -1"
-                                    v-on:click      ="menuItem = i_label; page = menu[menuGroup][menuItem]; generateCss();"
-                                    v-bind:class    ="{ selected : menuItem === i_label }"
+                                <li role        ="menuitem"
+                                    v-if        ="tab == 'edit' || item.some(e => e.style || e.hex)"
+                                    v-for       ="(item, i_label, j) in group"
+                                    :class      ="{ selected : menuItem === i_label }"
+                                    :tabindex   ="menuGroup === g_label ? 0 : -1"
+                                    @click      ="
+                                        menuItem = i_label;
+                                        page = menu[menuGroup][menuItem];
+                                    "
                                 >
                                     {{ i_label }}
                                 </li>
@@ -104,22 +105,34 @@
                     </ul>
                 </nav>
             
-                <section class="col page">
+                <section
+                    class   ="col page"
+                    v-if    ="tab === 'edit' || tab === 'view'"
+                >
                     <template v-if="menuItem === 'color'">
-                        <color-editor
-                            v-bind:editable     ="tab === 'edit'"
-                            v-model             ="page"
-                            v-on:color-change   ="setGlobalCss"
-                        ></color-editor>
+                        <color-page
+                            v-if            ="tab === 'edit' || page.length > 0"
+                            v-model         ="page"
+                            :editable       ="tab === 'edit'"
+                            @color-change   ="generateCss"
+                        ></color-page>
+                    </template>
+                    <template v-else-if="menuItem === 'typography'">
+                        <font-page
+                            v-if        ="tab === 'edit' || page.length > 0"
+                            v-model     ="page"                        
+                            :editable   ="tab === 'edit'"
+                            @css-change ="generateCss"
+                        ><font-page>
                     </template>
                     <template v-else>
                         <element-editor
-                            v-if    ="tab === 'edit' || el.style"
-                            v-for   ="(el, index) in page"
-                            v-model ="el"
-                            v-bind:editable     ="tab === 'edit'"
-                            v-on:add-element    ="addElement(page, index, $event)"
-                            v-on:compile-sass   ="compileSass(page, index, $event)"
+                            v-for       ="(el, index) in page"
+                            v-if        ="tab === 'edit' || el.style"                            
+                            v-model     ="el"
+                            :editable   ="tab === 'edit'"
+                            @css-change ="generateCss"
+                            @add-element="addElement(page, index, $event)"
                         ></element-editor>
                     </template>
                     <div v-if="!cssmin && tab === 'view'" class="empty-error --sty">

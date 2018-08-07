@@ -1,10 +1,10 @@
 define({
   "theme" : {
     "color" : [
-      {"name" : "primary", "ref" : "c-prim", "hex" : "#000000"}
+      {"ref" : "c-prim", "hex" : "#000000"}
     ],
-    "fonts" : [
-      {"name" : "secondary", "ref" : "c-sec", "hex" : "000000"},        
+    "typography" : [
+      {"selector" : "body", "props" : [], "markup" : '<span> Some text in default font </span>' } 
     ]
   },
   "text" : {

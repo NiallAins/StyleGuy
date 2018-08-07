@@ -1,16 +1,20 @@
-body[keyboard-nav="off"] {
-    .--sty button, a, *[tabindex="0"] {
+body[keyboard-nav="false"] {
+    .--sty :focus {
         outline: none;
     }
 }
-body[keyboard-nav="on"] {
-    .--sty button, a, *[tabindex="0"] {
-        outline: 1px solid var(--c-prim);
+body[keyboard-nav="true"] {
+    .--sty :focus {
+        outline: $outline;
     }
 }
 
 [v-cloak] {
     display: none;
+}
+
+.--sty p {
+    font-size: 14px;
 }
 
 .--sty {
@@ -30,11 +34,11 @@ body[keyboard-nav="on"] {
         border-radius: 4px;
 
         &:hover {
-            background-color: var(--c-prim-light);
+            background-color: $c-prim-light;
             color: white;
 
             i {
-                background-color: var(--c-prim-light);
+                background-color: $c-prim-light;
             }
         }
 
@@ -51,16 +55,36 @@ body[keyboard-nav="on"] {
     }
 
     code {
-        word-wrap: pre;
         display: block;
         padding: 10px;
-        background-color: var(--c-editor);
+        background-color: $c-editor;
         border-radius: 5px;
         font-size: 14px;
         line-height: 16px;
         color: white;
         font-family: "Courier New";
     }
+}
+
+.--sty input {
+    border-radius: 4px;
+    border-width: 1px;
+    
+    &[type=number] {
+        -moz-appearance: textfield;
+
+        &::-webkit-inner-spin-button, 
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    }
+}
+
+.--sty input,
+.--sty .dropdown {
+    font-size: 13px;
 }
 
 @keyframes load-outer {
@@ -106,7 +130,7 @@ body[keyboard-nav="on"] {
         position: absolute;
         top: 0;
         border-radius: 100%;
-        background-color: var(--c-prim);
+        background-color: $c-prim;
         animation: loader 2s infinite;
     }
     

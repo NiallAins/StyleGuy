@@ -1,4 +1,6 @@
 .element-editor {
+    margin-bottom: 30px;
+
     .center-preview {
       overflow: auto;
       text-align: center;
@@ -23,13 +25,18 @@
         }
       }
     }
+
+    &.editable .center-preview {
+      border: 1px solid $c-editor;
+      border-radius: 4px;
+    }
   
-    .preview {
+    .--sty-preview {
       display: inline-block;
     }
   
     .--sty .css-edit {
-      ul {
+      ul[role="tablist"] {
         padding: 0;
         overflow: auto;
         margin: 0;
@@ -38,7 +45,7 @@
         li {
           cursor: pointer;
           float: left;
-          background-color: var(--c-editor-light);
+          background-color: $c-editor-light;
           color: white;
           width: 80px;
           padding: 8px;
@@ -57,7 +64,7 @@
           
           &.selected {
             cursor: default;
-            background-color: var(--c-editor);
+            background-color: $c-editor;
           }
         }
       }
@@ -67,7 +74,7 @@
         width: calc(100% - 21px);
         height: 20px;
         position: absolute;
-        z-index: 10;
+        z-index: 5;
         left: 8px;
         background-color: #333;
         
@@ -151,11 +158,11 @@
       }
   
       &:not(.active):hover {
-        background-color: var(--c-prim-light);
+        background-color: $c-prim-light;
         color: white;
   
         button.add-element i {
-          background-color: var(--c-prim-light);
+          background-color: $c-prim-light;
         }
       }
   
@@ -163,7 +170,7 @@
         transition: all $add-btn-ani;
         height: 142px;
         width: 512px;
-        background-color: var(--c-prim);
+        background-color: $c-prim;
         color: white;
   
         button.add-element {
@@ -201,13 +208,13 @@
       button.create-element {
         width: 80px;
         padding: 6px;
-        border: 1px solid var(--c-prim-light);
+        border: 1px solid $c-prim-light;
         border-radius: 4px;
         margin-top: 5px;
         text-align: center;
   
         &:hover {
-          background-color: var(--c-prim-light);
+          background-color: $c-prim-light;
         }
       }
     }
