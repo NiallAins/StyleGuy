@@ -7,4 +7,13 @@ requirejs.config({
   }
 });
 
-requirejs(['app']);
+requirejs([
+    'comp/dropdown',
+    'comp/param-select',
+    'comp/font-editor',
+    'comp/font-page',
+    'comp/color-picker',
+    'comp/color-page',
+    'comp/element-editor',
+  'app'
+]);

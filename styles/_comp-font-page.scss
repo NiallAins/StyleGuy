@@ -1,0 +1,67 @@
+.font-page {
+    .font-editor {
+        .--sty {
+            code {
+                line-height: 22px;
+                padding: 28px 48px 30px;
+                height: auto;
+
+                .param-name {
+                    float: left;
+                    width: 200px;
+                }
+
+                .param-value {
+                    float: left;
+                    width: calc(100% - 200px);
+
+                    input, .dropdown {
+                        width: 130px;
+                        padding: 3px 8px;
+                        margin: 0 2px;
+                        border: none;
+                        color: white;
+                        background-color: $c-editor;
+                        vertical-align: middle;
+                    }
+
+                    .px input {
+                        width: 60px;
+                    }
+
+                    .dropdown {
+                        padding: 0;
+                    }
+
+                    .multi-container > div {
+                        display: inline-block;
+
+                        input {
+                            width: 60px;
+                        }
+
+                        .dropdown {
+                            width: 130px;
+                        }
+                    }
+                }
+
+                .row:hover input,
+                .row:hover .dropdown,
+                input:focus,
+                input:focus + .dropdown-container {
+                    color: $c-text;
+                    background-color: white;
+
+                    body[keyboard-nav="off"] & {
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .font-editor.editable .--sty code {
+        height: 220px;
+    }
+}

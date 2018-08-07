@@ -1,98 +1,108 @@
 Vue.component('color-picker', {
 	template: `
 		<div class="color-picker">
-			<div class="bg-mask" v-on:click="close(false)"></div>
+			<div
+				v-if	="!disableBackdrop"
+				class	="bg-mask"
+				@click	="close(false)"
+			></div>
 			<div class="modal">
 				<div class="sample-contain">
 					<div
 						class			="sample"
-						v-bind:editmode	="editMode"
-						v-bind:style	="{
+						:editmode	="editMode"
+						:style	="{
 							backgroundColor : value,
 							color : l / a > 50  ? 'black' : 'white' 
 						}"
 					>
 						<div class="hsl">
 							hsl{{ a < 1 ? 'a' : '' }}(<input
-								type			="text"
+								type			="number"
 								v-model			="h"
-								v-on:input		="syncFrom('hsl')"
-								v-on:keyup.up	="h = limit(h, 361, 1)"
-								v-on:keyup.down	="h = limit(h, 361, -1)"
+								@input		="syncFrom('hsl')"
+								min				="0"
+								max 			="360"
 							/>,
 							<input
-								type			="text"
+								type			="number"
 								v-model			="s"
-								v-on:input		="syncFrom('hsl')"
-								v-on:keyup.up	="s = limit(s, 101, 1)"
-								v-on:keyup.down	="s = limit(s, 101, -1)" 
+								@input		="syncFrom('hsl')"
+								min				="0"
+								max 			="100"
 							/>%,
 							<input
-								type			="text"
+								type			="number"
 								v-model			="l"
-								v-on:input		="syncFrom('hsl')" 
-								v-on:keyup.up	="l = limit(l, 101, 1)"
-								v-on:keyup.down	="l = limit(l, 101, -1)"
+								@input		="syncFrom('hsl')" 
+								min				="0"
+								max 			="100"
 							/>%{{ a < 1 ? ',' : '' }}
 							<input
 								v-if	="a < 1"
-								type	="text"
+								type	="number"
 								class	="alpha"
 								v-model	="a"
+								min		="0"
+								max 	="1"
+								step	="0.05"
 							 />)
 						</div>
 						<div class="rgb">
 							rgb{{ a < 1 ? 'a' : ''}}(<input
-								type			="text"
+								type			="number"
 								v-model			="r"
-								v-on:input		="syncFrom('rgb')"
-								v-on:keyup.up	="r = limit(r, 256, 1)"
-								v-on:keyup.down	="r = limit(r, 256, -1)"
+								@input		="syncFrom('rgb')"
+								min				="0"
+								max 			="255"
 							/>,
 							<input
-								type			="text"
+								type			="number"
 								v-model			="g"
-								v-on:input		="syncFrom('rgb')"
-								v-on:keyup.up	="g = limit(g, 256, 1)"
-								v-on:keyup.down	="g = limit(g, 256, -1)"
+								@input		="syncFrom('rgb')"
+								min				="0"
+								max 			="255"
 							/>,
 							<input
-								type			="text"
+								type			="number"
 								v-model			="b"
-								v-on:input		="syncFrom('rgb')"
-								v-on:keyup.up	="b = limit(b, 256, 1)"
-								v-on:keyup.down	="b = limit(b, 256, -1)"
+								@input		="syncFrom('rgb')"
+								min				="0"
+								max 			="255"
 							/>{{ a < 1 ? ',' : '' }}
 							<input
 								v-if	="a < 1"
-								type	="text"
+								type	="number"
 								class	="alpha"
 								v-model	="a"
+								min		="0"
+								max 	="1"
+								step	="0.05"
 							/>)
 						</div>
 						<div class="hex">
 							#<input
 								type		="text"
 								v-model		="hex"
-								v-on:input	="syncFrom('hex')"
+								@input	="syncFrom('hex')"
 							/>
 						</div>
 						<i	class		="caret-v clear sm"
-							v-bind:class="{ dark : l / a >= 50 }"
-							v-on:click	="editMode++; editMode %= 3;"
+							:class="{ dark : l / a >= 50 }"
+							@click	="editMode++; editMode %= 3;"
 						></i>
 					</div>
 				</div>
 				<div
 					class			="palette"
-					v-on:click		="setXY($event); syncFrom('hsl');"
-					v-on:mousedown	="dragging = true"
-					v-on:mouseup	="dragging = false"
-					v-on:mouseleave	="dragging = false"
-					v-on:mousemove	="dragging ? setXY($event) : ''; dragging ? syncFrom('hsl') : ''"
-					v-bind:style	="{ backgroundColor : 'hsl(' + h +', 100%, 50%)' }"
+					@click		="setXY($event); syncFrom('hsl');"
+					@mousedown	="dragging = true"
+					@mouseup	="dragging = false"
+					@mouseleave	="dragging = false"
+					@mousemove	="dragging ? setXY($event) : ''; dragging ? syncFrom('hsl') : ''"
+					:style	="{ backgroundColor : 'hsl(' + h +', 100%, 50%)' }"
 				>
-					<div class="cursor" v-bind:style="{top: y + '%', left: x + '%'}"></div>
+					<div class="cursor" :style="{top: y + '%', left: x + '%'}"></div>
 				</div>
 				<input
 					class		="hue-slider"
@@ -100,7 +110,7 @@ Vue.component('color-picker', {
 					v-model		="h"
 					min			="0"
 					max			="360"
-					v-on:input	="syncFrom('hsl')" 
+					@input	="syncFrom('hsl')" 
 				/>
 				<div class="alpha-contain">
 					<input
@@ -110,17 +120,20 @@ Vue.component('color-picker', {
 						min			="0"
 						max			="1"
 						step		="0.02"
-						v-bind:style="{
+						:style="{
 							background  : 'linear-gradient(to right, transparent, ' + this.value.substr(0, 7) + ')',
 							borderColor : this.value.substr(0, 7)
 						}"
 					/>
 				</div>
-				<div class="footer">
-					<button class="sty-btn sm" v-on:click="close(true)">
+				<div
+					class="footer"
+					v-if="!hideControls"
+				>
+					<button class="sty-btn sm" @click="close(true)">
 						<i class="accept"></i> Select
 					</button>
-					<button class="sty-btn sm" v-on:click="close(false)">
+					<button class="sty-btn sm" @click="close(false)">
 						<i class="cancel"></i> Cancel
 					</button>
 				</div>
@@ -128,7 +141,9 @@ Vue.component('color-picker', {
 		</div>
 	`,
 	props: [
-		'value'
+		'value',
+		'hideControls',
+		'disableBackdrop'
 	],
 	data : function() {
 		return {
@@ -175,13 +190,6 @@ Vue.component('color-picker', {
 				this.x = this.s;
 				this.y = 100 - (this.l * (1 + (this.x / 100)));
 			}
-		},
-		limit : function(val, max, inc) {
-			val = (val + inc) % max;
-			if (val < 0) {
-				val += max;
-			}
-			return val;
 		},
 		setValue : function(e) {
 			this.value = '#' + this.hex;

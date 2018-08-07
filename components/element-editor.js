@@ -1,28 +1,31 @@
 Vue.component('element-editor', {
 	template: `
-		<div class="element-editor">
+		<div
+			class	="element-editor"
+			:class	="{ editable : editable }"
+		>
 			<div class="row fill-height vert-center">
 				<div class="col-4 center-preview">
-					<v-style>
-						{{ '.preview ' + value.style }}
-					</v-style>
-					<div class="preview" v-html="value.markup"></div>
+					<div
+						class="--sty-preview"
+						v-html="value.markup"
+					></div>
 				</div>
 
-				<div class="col-8 no-pad-b --sty">
+				<div class="col-8 no-pad-v --sty">
 					<div class="css-edit" v-if="editable">
 						<ul role="tablist">
-							<li role		="tab"
-								tabIndex	="0"
-								v-bind:class="{ selected : editMode === 'css' }"
-								v-on:click	="editMode = 'css'"
+							<li role	="tab"
+								tabIndex="0"
+								:class	="{ selected : editMode === 'css' }"
+								@click	="editMode = 'css'"
 							>
 								css <span>/ scss</span>
 							</li>
-							<li role		="tab"
-								tabIndex	="0"
-								v-bind:class="{ selected : editMode === 'html' }"
-								v-on:click	="editMode = 'html'"
+							<li role	="tab"
+								tabIndex="0"
+								:class	="{ selected : editMode === 'html' }"
+								@click	="editMode = 'html'"
 							>
 								html
 							</li>
@@ -30,15 +33,19 @@ Vue.component('element-editor', {
 						<code v-show="editMode === 'css'">
 							<p>{{ value.selector }} {</p>
 								<textarea
-									spellcheck="false"
-									v-on:blur="compileSass($event.target.value)"
+									spellcheck	="false"
+									v-model		="value.style"
+									@input 		="hasStyleUpdate = true"
+									@keyup.186	="forceUpdate"
+									@focus		="startEdit"
+									@blur		="stopEdit"
 								></textarea>
 							<p>}</p>
 						</code>
 						<code v-show="editMode === 'html'">
 							<textarea
-								spellcheck="false"
-								v-model="value.markup"
+								spellcheck	="false"	
+								v-model		="value.markup"
 							></textarea>
 						</code>
 					</div>
@@ -52,11 +59,11 @@ Vue.component('element-editor', {
 				<div class="col-8 col-off-4 no-pad-t --sty">
 					<div
 						class="add-varient"
-						v-bind:class="{ active : activeAdd }"
+						:class="{ active : activeAdd }"
 					>
 						<button
 							class="add-element"
-							v-on:click="activeAdd = !activeAdd"
+							@click="activeAdd = !activeAdd"
 						>
 							<i class="add"></i> Add varient
 						</button>
@@ -78,9 +85,9 @@ Vue.component('element-editor', {
 							<div class="col-6">
 								<label for="newClass"> Css selector </label>
 								<input
-									type	="text"
-									v-model	="addSelector"
-									v-bind:placeholder="'ex. nav > ' + value.selector + '.menu-item'"
+									type		="text"
+									v-model		="addSelector"
+									:placeholder="'ex. nav > ' + value.selector + '.menu-item'"
 								/> 
 							</div>
 						</div>
@@ -88,7 +95,7 @@ Vue.component('element-editor', {
 							<div class="col-12 content-right">
 								<button
 									class="create-element"
-									v-on:click="addElement()"
+									@click="addElement()"
 								>
 									Create
 								</button>
@@ -108,7 +115,9 @@ Vue.component('element-editor', {
 			editMode	: 'css',
 			activeAdd	: false,
 			addClass	: '',
-			addSelector	: ''
+			addSelector	: '',
+			editUpdate  : null,
+			hasStyleUpdate : false
 		}
 	},
 	watch : {
@@ -117,8 +126,22 @@ Vue.component('element-editor', {
 		}
 	},
 	methods : {
-		compileSass : function(inputCode) {
-			this.$emit('compile-sass', this.value.selector + ' {' + inputCode + '}');
+		startEdit : function() {
+			this.editUpdate = setInterval(() => {
+				if (this.hasStyleUpdate) {
+					this.$emit('css-change')
+					this.hasStyleUpdate = false;
+				}
+			}, 2500);
+		},
+		stopEdit : function() {
+			clearInterval(this.editUpdate);
+		},
+		forceUpdate : function() {
+			this.stopEdit();
+			this.$emit('css-change')
+			this.hasStyleUpdate = false;
+			this.startEdit();
 		},
 		addElement : function() {
 			this.activeAdd = false;
@@ -132,7 +155,7 @@ Vue.component('element-editor', {
 			} else if (this.addSelector) {
 				this.$emit('add-element', { 
 					selector: this.addSelector,
-					newMarkup: this.selectorToMarkup(this.addSelector, this.value.markup)
+					markup: this.selectorToMarkup(this.addSelector, this.value.markup)
 				});          
 			} else {
 				this.activeAdd = true;

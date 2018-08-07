@@ -5,7 +5,7 @@ $icon : '.--sty i';
     width: 30px;
     height: 30px;
     vertical-align: middle;
-    background-color: var(--c-prim);
+    background-color: $c-prim;
     position: relative;
     border-radius: 100%;
   
@@ -94,7 +94,7 @@ $icon : '.--sty i';
         width: 6px;
         height: 14px;
         background-color: white;
-        border-bottom: 1px solid var(--c-prim);
+        border-bottom: 1px solid $c-prim;
         transform: rotate(45deg);
     }
 }
@@ -120,11 +120,11 @@ $icon : '.--sty i';
 
     &.dark {
         &:before {
-            border-bottom-color: var(--c-editor);
+            border-bottom-color: $c-editor;
         }
 
         &:after {
-            border-top-color: var(--c-editor);
+            border-top-color: $c-editor;
         }
     }
 }

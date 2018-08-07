@@ -1,11 +1,9 @@
 requirejs([
 	'data/elements',
-	'lib/sass',
-	'comp/color-editor',
-	'comp/color-picker',
-	'comp/element-editor'
+	'data/properties',
+	'lib/sass'
 ], function(
-	elements, Sass
+	elements, properties, Sass
 ) {
 	Vue.component('v-style', {
 		render: function (createElement) {
@@ -14,7 +12,23 @@ requirejs([
 	});
 
 	Sass.setWorkerUrl('./js/lib/sass.worker.js');
-	
+
+	//A11y keyboard interaction
+	document.body.addEventListener('keyup', function(e) {
+		if (event.keyCode === 13) {
+			document.activeElement.click();
+			this.setAttribute('keyboard-nav', 'true');
+		}
+	});
+	document.body.addEventListener('keydown', function(e) {
+		if (event.keyCode === 9) {
+			this.setAttribute('keyboard-nav', 'true');
+		}
+	});
+	document.body.addEventListener('click', function(e) {
+		this.setAttribute('keyboard-nav', 'false');
+	});
+
 	let initGroup = Object.keys(elements)[0],
 	initItem  = Object.keys(elements[initGroup])[0];
 
@@ -23,60 +37,75 @@ requirejs([
 			elements[g][i].forEach(e => e.style = e.style || '');
 		}
 	}
-	
+
 	new Vue({
 		el: '[app]',
 		data: {
 			loaded 		: false,
-			cssmin 		: '', 
-			cssGlobal 	: '',
+			cssmin 		: '',
 			sassInject 	: '',
 			tab 		: 'edit',
 			menuGroup 	: initGroup,
 			menuItem 	: initItem,
 			page 		: elements[initGroup][initItem],
 			menu 		: elements,
+			properties  : properties,
 			sassCompile : new Sass()
 		},
 		created : function() {
-			this.setGlobalCss();
 			this.generateCss();
 		},
 		mounted : function() {
 			this.loaded = true;
 		},
 		methods : {
-			setGlobalCss : function() {
-				this.cssGlobal = '';
-				this.sassInject = [];
+			generateCss : function(e, final) {
+				this.sassInject = '';
 				elements.theme.color.forEach(c => {
-					this.cssGlobal  += `--${c.ref}:${c.hex};`;
 					this.sassInject += `$${c.ref}:var(--${c.ref});`;
 				});
-			},
-			generateCss : function() {
-				this.cssmin = '';
+				elements.theme.typography.forEach(f => {
+					if (f.props.some(p => (p || p === 0))) {				
+						this.sassInject =
+							`@mixin font-${f.selector.replace('.', '')} { ${
+								Object.keys(properties.typography)
+									.map((p, i) => p.replace(/[A-Z]/, '-$&').toLowerCase() + ' : ' + f.props[i])
+									.filter((p, i) => (f.props[i] || f.props[i] === 0))
+									.join(';')
+							}; }`;
+					}
+				});
+
+				let tempsass = '';
 				for(let group in elements) {
 					for (let item in elements[group]) {
 						if (group === 'theme' && item === 'color') {
-							this.cssmin += elements[group][item].reduce(
-								(str, c) => str + `--${c.ref}:${c.hex};`, 
-								':root{'
+							tempsass += elements[group][item].reduce(
+								(str, c) => str + `--${c.ref}:${c.hex};`,
+								final ? ':root {' : '.--sty-preview {'
 							) + '}';
 						} else {
-							this.cssmin += elements[group][item].reduce(
-								(str, i) => str + i.style || '',
+							tempsass += elements[group][item].reduce(
+								(str, i) => {
+									if (i.style) {
+										str += (final ? '' : ' .--sty-preview ') +
+											i.selector +
+											'{' + i.style + '}';
+									}
+									return str;
+								},
 								''
 							);
 						}
 					}
 				}
-			},
-			compileSass : function(item, index, scss) {
+				if (!final) {
+					tempsass = tempsass.replace('--sty-preview body', '--sty-preview');
+				}
 				this.sassCompile.compile(
-					this.sassInject + scss,
-					styleObj => item[index].style = styleObj.text
-				); 
+					this.sassInject + tempsass,
+					styleObj => styleObj.status === 0 ? this.cssmin = styleObj.text : ''
+				);
 			},
 			groupHasItems : function(group) {
 				for(let item in group) {
@@ -88,13 +117,13 @@ requirejs([
 			},
 			addElement : function(item, index, elObj) {
 				let newEl = {
-					selector: elObj.selector,
-					markup: elObj.markup,
-					justCreate : true
+					selector	: elObj.selector,
+					markup		: elObj.markup,
+					justCreated : true
 				};
 				item.splice(index + 1, 0, newEl);
 			}
 		}
 	});
-	
+
 });

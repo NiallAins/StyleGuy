@@ -1,11 +1,11 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--c-prim-light);
+    background-color: $c-prim-light;
 
     .--sty {
         font-family: "Helvetica";
-        color: var(--c-text);
+        color: $c-text;
     }
 }
 
@@ -42,9 +42,10 @@ header.--sty {
         list-style: none;
 
         li {
+            transition: background-color 0.1s, color 0.1s;
             cursor: pointer;
             float: left;
-            background-color: var(--c-prim);
+            background-color: $c-prim;
             color: white;
             padding: 10px 20px;
             border-radius: 6px 6px 0 0;
@@ -58,14 +59,20 @@ header.--sty {
             &.selected {
                 cursor: default;
                 background-color: white;
-                color: var(--c-text);
+                color: $c-text;
+            }
+
+            &:not(.selected):hover {
+                color: $c-text;                
+                background-color: $c-prim-lightest;
             }
         }
     }
 }
 
-:not(.preview) main {
+:not(.--sty-preview) main {
     position: relative;
+    overflow: auto;
     background-color: white;
     min-height: calc(100vh - #{$header-height});
     margin: 0 -15px;
@@ -97,12 +104,12 @@ nav.--sty {
             cursor: pointer;
             
             &:hover {
-                background-color: var(--c-prim-light);
+                background-color: $c-prim-light;
                 color: white;
             }
             
             &.selected {
-                background-color: var(--c-prim);
+                background-color: $c-prim;
                 color: white;
                 
                 ul {
@@ -118,7 +125,7 @@ nav.--sty {
                     &.selected {
                         cursor: default;
                         margin-left: 20px;
-                        background-color: var(--c-prim-light);
+                        background-color: $c-prim-light;
                     }
                 }
             }
@@ -141,15 +148,16 @@ nav.--sty {
 section.page {
     position: relative;
     width: calc(100% - #{$nav-width});
+    padding: 30px;
     min-height: calc(100vh - #{$header-height});
 
     &:after {
         content: '';
-        border-left: 1px solid var(--c-text);
+        border-left: 1px solid $c-text;
         height: calc(100% - 60px);
         position: absolute;
         top: 30px;
-        left: 6px;
+        left: 0px;
     }
 }
 
