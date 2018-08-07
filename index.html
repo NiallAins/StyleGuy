@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html>
 
 <head>
     <title>StyleGuy</title>
-    <link rel="stylesheet" type="text/css" href="main.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./main.min.css"/>
 </head>
 
 <body keyboard-nav="off">
@@ -123,7 +124,7 @@
                             v-model     ="page"                        
                             :editable   ="tab === 'edit'"
                             @css-change ="generateCss"
-                        ><font-page>
+                        ></font-page>
                     </template>
                     <template v-else>
                         <element-editor
