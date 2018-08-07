@@ -82,13 +82,13 @@ requirejs([
 						if (group === 'theme' && item === 'color') {
 							tempsass += elements[group][item].reduce(
 								(str, c) => str + `--${c.ref}:${c.hex};`,
-								final ? ':root {' : '.--sty-preview {'
+								final ? ':root {' : '.-sty-preview {'
 							) + '}';
 						} else {
 							tempsass += elements[group][item].reduce(
 								(str, i) => {
 									if (i.style) {
-										str += (final ? '' : ' .--sty-preview ') +
+										str += (final ? '' : ' .-sty-preview ') +
 											i.selector +
 											'{' + i.style + '}';
 									}
@@ -100,7 +100,7 @@ requirejs([
 					}
 				}
 				if (!final) {
-					tempsass = tempsass.replace('--sty-preview body', '--sty-preview');
+					tempsass = tempsass.replace('-sty-preview body', '-sty-preview');
 				}
 				this.sassCompile.compile(
 					this.sassInject + tempsass,

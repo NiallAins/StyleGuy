@@ -1,4 +1,4 @@
-$icon : '.--sty i';
+$icon : '.-sty i';
 
 #{$icon} {
     display: inline-block;
@@ -96,6 +96,19 @@ $icon : '.--sty i';
         background-color: white;
         border-bottom: 1px solid $c-prim;
         transform: rotate(45deg);
+    }
+}
+
+#{$icon}.delete {
+    &:after {
+        content: '';
+        width: 17px;
+        height: 4px;
+        border-radius: 4px;
+        background-color: white;
+        position: absolute;
+        top: 13px;
+        left: 6px;
     }
 }
 

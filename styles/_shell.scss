@@ -3,13 +3,13 @@ body {
     padding: 0;
     background-color: $c-prim-light;
 
-    .--sty {
+    .-sty {
         font-family: "Helvetica";
         color: $c-text;
     }
 }
 
-.loading-mask.--sty {
+.loading-mask.-sty {
     position: fixed;
     left: 0;
     top: $header-height;
@@ -32,7 +32,7 @@ body {
     }
 }
 
-header.--sty {
+header.-sty {
     &.row {
         margin: 20px 0 0 0;
     }
@@ -70,7 +70,7 @@ header.--sty {
     }
 }
 
-:not(.--sty-preview) main {
+:not(.-sty-preview) main {
     position: relative;
     overflow: auto;
     background-color: white;
@@ -85,7 +85,7 @@ header.--sty {
     }
 }
 
-nav.--sty {
+nav.-sty {
     position: sticky;
     top: 0;
     width: $nav-width;
@@ -161,7 +161,7 @@ section.page {
     }
 }
 
-.--sty.empty-error {
+.-sty.empty-error {
     display: table;
     width: 100%;
     height: calc(100vh - #{$header-height + 30});
@@ -173,7 +173,7 @@ section.page {
     }
 }
 
-.--sty .cssmin div {
+.-sty .cssmin div {
     text-align: center;
     padding: 20px;
     font-size: 16px;

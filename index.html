@@ -12,7 +12,7 @@
             {{ cssmin }}
         </v-style>
         
-        <header class="row --sty">
+        <header class="row -sty">
             <ul role    ="menubar">
                     <li role    ="menuitem"
                         tabindex="0"
@@ -52,12 +52,12 @@
             </ul>
         </header>
 
-        <div class="loading-mask --sty" :class="{ loaded: loaded }">
+        <div class="loading-mask -sty" :class="{ loaded: loaded }">
             <div class="loader"></div>
         </div>
 
         <main>
-            <section v-show="tab === 'project'" class="row --sty">
+            <section v-show="tab === 'project'" class="row -sty">
                 <ul>
                     <li>project name</li>
                     <li>load preset</li>
@@ -78,7 +78,7 @@
             </section>
 
             <section v-show="tab === 'view' || tab === 'edit'" class="row fill-height">
-                <nav class="col --sty">
+                <nav class="col -sty">
                     <ul role="menu">
                         <li role    ="menuitem"
                             v-if    ="tab === 'edit' || groupHasItems(group)"
@@ -136,13 +136,13 @@
                             @add-element="addElement(page, index, $event)"
                         ></element-editor>
                     </template>
-                    <div v-if="!cssmin && tab === 'view'" class="empty-error --sty">
+                    <div v-if="!cssmin && tab === 'view'" class="empty-error -sty">
                         <h2>No styles have been added yet</h2>
                     </div>
                 </section>
             </section>
 
-            <section v-show="tab === 'export'" class="row --sty">
+            <section v-show="tab === 'export'" class="row -sty">
                 <ul>
                     <li>Hosted files</li>
                     <ul>
@@ -159,7 +159,7 @@
                 </ul>
             </section>
 
-            <section v-show="tab === 'about'" class="row --sty">
+            <section v-show="tab === 'about'" class="row -sty">
                 <ul>
                     <li>about</li>
                     <li>get started tour</li>

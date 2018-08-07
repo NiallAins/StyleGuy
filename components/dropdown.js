@@ -16,18 +16,21 @@ Vue.component('dropdown', {
                 class   ="dropdown-container"
                 :class  ="{ open : open }"
                 :style  ="{
-                    height : open ? (length * elheight) + 2 : elheight,
-                    top    : open ? selected * elheight * -1 : 0
+                    height : (open ? (length * elheight) + 2 : elheight) + 'px',
+                    top    : (open ? selected * elheight * -1 : 0) + 'px'
                 }"
             >
-            <ul :style      ="{ top: open ? 0 : selected * elheight * -1 }"    
+            <ul :style      ="{ top: (open ? 0 : selected * elheight * -1) + 'px' }"    
                 @mouseleave ="open = false"
                 @click      ="open = !open"
             >
                     <li v-if    ="!forceselect"
                         class   ="unset"
                         :class  ="{ selected : selected === 0 }"
-                        :style  ="{ height: elheight, lineHeight: elheight + 'px' }"
+                        :style  ="{
+                            height      : elheight + 'px',
+                            lineHeight  : elheight + 'px'
+                        }"
                         @click  ="
                             value = '';
                             selected = 0;
@@ -38,7 +41,10 @@ Vue.component('dropdown', {
                     <li
                         v-for       ="(op, i) in options"
                         :class      ="{ selected : selected === (forceselect ? i : i + 1) }"
-                        :style      ="{ height: elheight, lineHeight: elheight + 'px' }"
+                        :style      ="{
+                            height      : elheight + 'px',
+                            lineHeight  : elheight + 'px'
+                        }"
                         @click      ="
                             value = op;
                             selected = forceselect ? i : i + 1
@@ -47,6 +53,7 @@ Vue.component('dropdown', {
                         {{ op }}
                     </li>
                 </ul>
+                {{ selected }}
             </div>
         </div>
     `,

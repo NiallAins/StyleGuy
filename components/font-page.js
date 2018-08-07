@@ -1,7 +1,7 @@
 Vue.component('font-page', {
 	template: `
         <div class="font-page">
-            <p class="--sty">
+            <p class="-sty">
                 Fonts can be referenced elsewhere in the styleguide with a sass mixin:
                 <br/>
                 @include font-[font name]
@@ -14,7 +14,7 @@ Vue.component('font-page', {
             ></font-editor>
             <div
                 v-if    ="editable"
-                class   ="row --sty"
+                class   ="row -sty"
             >
                 <div class="col-12">
                     <button
@@ -43,6 +43,7 @@ Vue.component('font-page', {
 	},
 	methods : {
         addFont : function() {
+            
         }
 	}
 });

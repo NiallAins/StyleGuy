@@ -1,6 +1,6 @@
 Vue.component('color-page', {
 	template: `
-		<div class="color-page --sty">
+		<div class="color-page -sty">
 			<p>
 				Colors can be referenced elsewhere in the style guide using their sass variable name.
 				<br/>
@@ -11,7 +11,7 @@ Vue.component('color-page', {
 				v-for="(color, index) in value"
 			>
 				<div
-					class	="col-8 editable no-pad-v"
+					class	="col-10 editable no-pad-v"
 					:class	="{ selected : editing === index }"
 				>
 					<div class="col-3 c-ref">
@@ -33,7 +33,7 @@ Vue.component('color-page', {
 						</div>
 					</div>
 					<div
-						class	="col-6 c-btns"
+						class	="col-4 c-btns"
 						v-if	="editable"
 					>
 						<button
@@ -62,6 +62,16 @@ Vue.component('color-page', {
 							</span>
 						</button>
 					</div>
+					<div class="col-2">
+						<button
+							class	="sty-btn delete"
+							@click	="deleteColor(index)"
+						>
+							<span v-show="editing === index">
+								<i class="delete"></i> Delete
+							</span>
+						</button>
+					</div>
 				</div>
 			</div>
 			<div
@@ -80,7 +90,7 @@ Vue.component('color-page', {
 			<color-picker
 				v-if			="editing > -1"
 				v-model			="value[editing].hex"
-				:style			="{ top: (editing * 80) + 38 }"
+				:style			="{ top: (editing * 80) + 100 + 'px' }"
 				:hideControls	="true"
 				:disableBackdrop="true"
 			></color-picker>
@@ -145,6 +155,7 @@ Vue.component('color-page', {
 			this.editing = i - 1;
 		},
 		deleteColor : function(i) {
+			this.editing = -1;
 			this.value.splice(i, 1);
 		}
 	}

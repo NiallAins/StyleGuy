@@ -7,12 +7,12 @@ Vue.component('element-editor', {
 			<div class="row fill-height vert-center">
 				<div class="col-4 center-preview">
 					<div
-						class="--sty-preview"
+						class="-sty-preview"
 						v-html="value.markup"
 					></div>
 				</div>
 
-				<div class="col-8 no-pad-v --sty">
+				<div class="col-8 no-pad-v -sty">
 					<div class="css-edit" v-if="editable">
 						<ul role="tablist">
 							<li role	="tab"
@@ -56,7 +56,7 @@ Vue.component('element-editor', {
 				</div>
 			</div>
 			<div class="row" v-if="editable">
-				<div class="col-8 col-off-4 no-pad-t --sty">
+				<div class="col-8 col-off-4 no-pad-t -sty">
 					<div
 						class="add-varient"
 						:class="{ active : activeAdd }"

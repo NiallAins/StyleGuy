@@ -2,7 +2,7 @@ requirejs(['data/elements'], function(elements) {
     Vue.component('param-select', {
         template: `
             <div
-                class   ="param-select --sty"
+                class   ="param-select -sty"
                 :class  ="[
                     type,
                     { empty : !value && value !== 0 }
@@ -52,11 +52,13 @@ requirejs(['data/elements'], function(elements) {
 
                 <!-- px -->
                 <input
-                    v-if        ="type === 'px'"
-                    type        ="text"
-                    v-model     ="tempValue"
-                    :placeholder="placeholder"
-                    @input      ="addUnit"
+                    v-if            ="type === 'px'"
+                    type            ="text"
+                    v-model         ="tempValue"
+                    :placeholder    ="placeholder"
+                    @input          ="addUnit"
+                    @keydown.up     ="editValue(1)"
+                    @keydown.down   ="editValue(-1)"
                 />
 
                 <!-- sec -->
@@ -76,11 +78,13 @@ requirejs(['data/elements'], function(elements) {
                         :class  ="subtype"
                     >
                         <input
-                            v-if        ="subtype === 'px'"
-                            v-model     ="multiTemp[i]"
-                            type        ="text"
-                            :placeholder="placeholder"
-                            @input      ="addUnit($event, i)"
+                            v-if            ="subtype === 'px'"
+                            type            ="text"
+                            v-model         ="multiTemp[i]"
+                            :placeholder    ="placeholder"
+                            @input          ="addUnit($event, i)"
+                            @keydown.up     ="editValue(1, i)"
+                            @keydown.down   ="editValue(-1, i)"
                         />
                         <dropdown
                             v-if        ="subtype === 'hex' || subtype === 'font'"
@@ -105,8 +109,8 @@ requirejs(['data/elements'], function(elements) {
                 validateValue : '',
                 list: [],
                 tempValue : '',
-                multiValue: [],
-                multiTemp: []
+                multiValue: this.params[1] ? this.params[1].map(p => '') : '',
+                multiTemp: this.params[1] ? this.params[1].map(p => '') : ''
             }
         },
         created : function() {
@@ -141,19 +145,37 @@ requirejs(['data/elements'], function(elements) {
                     let val = this.validateUnit(this.multiTemp[i]);
                     this.multiTemp[i] = val.validated;
                     this.multiValue[i] = val.withUnit;
-                    this.updateMulti();                
                 } else {
                     let val = this.validateUnit(this.tempValue);
                     this.tempValue = val.validated;
                     this.value = val.withUnit;
                 }
             },
+            editValue : function(val, i) {
+                if (i || i === 0) {
+                    let num = this.multiTemp[i] && this.multiTemp[i].match(/^-?[0-9.]+/);
+                    if (num) {
+                        this.multiTemp[i] = this.multiTemp[i].replace(num[0], parseInt(num[0]) + val);
+                    } else {
+                        this.multiTemp[i] = val.toString();
+                    }
+                    this.addUnit(null, i);
+                } else {
+                    let num = this.tempValue.match(/^-?[0-9.]+/);
+                    if (num) {
+                        this.tempValue = this.tempValue.replace(num[0], parseInt(num[0]) + val);
+                    } else {
+                        this.tempValue = val.toString();
+                    }
+                    this.addUnit();
+                }
+            },
             updateMulti : function() {
                 this.value = this.multiValue.filter(v => v).join(' ');
             },
             validateUnit : function(str) {
-                let match = str.match(/^[0-9.]+(p|px|%|e|r|em|rem|pt|v|vw|vh)?$/),
-                    num = str.match(/^[0-9.]+/);
+                let match = str.match(/^-?[0-9.]+(p|px|%|e|r|em|rem|pt|v|vw|vh)?$/),
+                    num = str.match(/^-?[0-9.]+/);
 
                 if (match) {
                     str = match[0];

@@ -1,10 +1,14 @@
 .font-page {
     .font-editor {
-        .--sty {
+        .-sty {
             code {
                 line-height: 22px;
-                padding: 28px 48px 30px;
+                padding: 28px 48px 35px;
                 height: auto;
+
+                p {
+                    background: none;
+                }
 
                 .param-name {
                     float: left;
@@ -61,7 +65,7 @@
         }
     }
 
-    .font-editor.editable .--sty code {
+    .font-editor.editable .-sty code {
         height: 220px;
     }
 }

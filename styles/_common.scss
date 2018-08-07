@@ -1,10 +1,10 @@
 body[keyboard-nav="false"] {
-    .--sty :focus {
+    .-sty :focus {
         outline: none;
     }
 }
 body[keyboard-nav="true"] {
-    .--sty :focus {
+    .-sty :focus {
         outline: $outline;
     }
 }
@@ -13,11 +13,11 @@ body[keyboard-nav="true"] {
     display: none;
 }
 
-.--sty p {
+.-sty p {
     font-size: 14px;
 }
 
-.--sty {
+.-sty {
     button {
         background: none;
         border: none;
@@ -43,6 +43,7 @@ body[keyboard-nav="true"] {
         }
 
         i {
+            transition: background-color 0.2s;
             margin-right: 6px;
         }
 
@@ -51,6 +52,15 @@ body[keyboard-nav="true"] {
             padding: 0 15px 0 0;
             height: 30px;
             border-radius: 15px;
+        }
+
+        &.delete:hover {
+            background-color: $c-delete;
+            color: white;
+
+            i {
+                background-color: $c-delete;
+            }
         }
     }
 
@@ -66,7 +76,7 @@ body[keyboard-nav="true"] {
     }
 }
 
-.--sty input {
+.-sty input {
     border-radius: 4px;
     border-width: 1px;
     
@@ -82,8 +92,8 @@ body[keyboard-nav="true"] {
     }
 }
 
-.--sty input,
-.--sty .dropdown {
+.-sty input,
+.-sty .dropdown {
     font-size: 13px;
 }
 
