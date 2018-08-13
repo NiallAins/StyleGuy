@@ -126,8 +126,10 @@ requirejs(['data/elements'], function(elements) {
                     this.list = elements.theme.typography.map(f => '@include font-' + f.ref);
                     break;
                 case 'multi':
-                    this.multiTemp = this.value.split(' ');
-                    this.multiValue = this.value.split(' ');
+                    if (this.value) {
+                        this.multiTemp = this.value.split(' ');
+                        this.multiValue = this.value.split(' ');
+                    }
                     this.list = elements.theme.color.map(c => '$' + c.ref);
                     break;
             }

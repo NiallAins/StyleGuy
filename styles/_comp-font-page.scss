@@ -1,5 +1,21 @@
 .font-page {
     .font-editor {
+        .-sty.desc {
+            margin: -15px 0 15px;
+            border: 1px solid $c-editor;
+            border-radius: 4px;
+        }
+
+        :not(.-sty-preview) .center-preview {
+            height: 244px;
+            display: table;
+
+            .-sty-preview {
+                display: table-cell;
+                vertical-align: middle;
+            }
+        }
+
         .-sty {
             code {
                 line-height: 22px;
@@ -18,36 +34,6 @@
                 .param-value {
                     float: left;
                     width: calc(100% - 200px);
-
-                    input, .dropdown {
-                        width: 130px;
-                        padding: 3px 8px;
-                        margin: 0 2px;
-                        border: none;
-                        color: white;
-                        background-color: $c-editor;
-                        vertical-align: middle;
-                    }
-
-                    .px input {
-                        width: 60px;
-                    }
-
-                    .dropdown {
-                        padding: 0;
-                    }
-
-                    .multi-container > div {
-                        display: inline-block;
-
-                        input {
-                            width: 60px;
-                        }
-
-                        .dropdown {
-                            width: 130px;
-                        }
-                    }
                 }
 
                 .row:hover input,

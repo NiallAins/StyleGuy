@@ -112,6 +112,26 @@ $icon : '.-sty i';
     }
 }
 
+#{$icon}.caret-d {
+    transition: transform 0.2s;
+
+    &:after {
+        content: '';
+        position: absolute;
+        border: 8px solid transparent;
+    }
+
+    &:after {
+        top: 11px;
+        left: 7px;
+        border-top-color: white;
+    }
+
+    &.rotate {
+        transform: rotate(180deg);
+    }
+}
+
 #{$icon}.caret-v {
     &:before, &:after {
         content: '';
@@ -139,5 +159,27 @@ $icon : '.-sty i';
         &:after {
             border-top-color: $c-editor;
         }
+    }
+}
+
+#{$icon}.elipsis {
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        top: 13px;
+        width: 4px;
+        height: 4px;
+        border-radius: 100%;
+        background-color: white;
+    }
+
+    &:before {
+        left: 6px;
+        
+    }
+
+    &:after {
+        left: 14px;
+        box-shadow: 8px 0 0 0 white;
     }
 }

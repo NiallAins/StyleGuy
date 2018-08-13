@@ -14,6 +14,7 @@ requirejs([
     'comp/font-page',
     'comp/color-picker',
     'comp/color-page',
+    'comp/ui-editor',
     'comp/element-editor',
   'app'
 ]);

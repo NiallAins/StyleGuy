@@ -91,27 +91,41 @@ nav.-sty {
     width: $nav-width;
     overflow: auto;
 
-    ul {
+    &>ul {
         padding: 8px 0 0 0;
         list-style: none;
         text-transform: uppercase;
         font-size: 11px;
         
         &>li {
-            padding: 10px 5px 10px 15px;
-            border-radius: 4px;
-            transition: all 0.2s;
+            margin: 5px 0 5px 10px;
+            padding: 5px;
+            border-left: 3px solid transparent;
             cursor: pointer;
+            position: relative;
+
+            &:after {
+                content: '';
+                transition: all 0.2s;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: -4px;
+                width: 0;
+                background-color: $c-prim;
+            }
             
-            &:hover {
-                background-color: $c-prim-light;
-                color: white;
+            &:hover:after, {
+                width: 3px;
             }
             
             &.selected {
-                background-color: $c-prim;
-                color: white;
-                
+                &:after {
+                    width: 3px;
+                    left: 6px;
+                    top: 25px;
+                }
+
                 ul {
                     padding: 5px;
                     text-transform: capitalize;
@@ -119,23 +133,24 @@ nav.-sty {
                 }
                 
                 li {
+                    transition: height 0.2s ease 0.2s, padding 0.2s ease 0.2s;
                     height: 16px;
                     padding: 5px;
+                    margin: 0;
                 
                     &.selected {
                         cursor: default;
                         margin-left: 20px;
-                        background-color: $c-prim-light;
                     }
                 }
             }
             
             &>ul {
                 transition: padding 0.2s;
-                padding: 0px;
                 
                 &>li {
-                    color: white;
+                    transition: none;
+                    margin: 0;
                     height: 0;
                     padding: 0;
                     overflow: hidden;

@@ -5,12 +5,17 @@ requirejs(['data/properties'], function(properties) {
                 class   ="font-editor element-editor"
                 :class  ="{ editable : editable }"
             >
-                <div class="row fill-height vert-center">
-                    <div class="col-4 center-preview">
-                        <div
-                            class="-sty-preview"
-                            v-html="value.markup"
-                        ></div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="col-12 -sty desc">
+                            {{ desc }}
+                        </div>
+                        <div class="col-12 center-preview">
+                            <div
+                                class="-sty-preview"
+                                v-html="value.markup"
+                            ></div>
+                        </div>
                     </div>
 
                     <div class="col-8 no-pad-v -sty">
@@ -73,7 +78,8 @@ requirejs(['data/properties'], function(properties) {
         data : function() {
             return {
                 editMode : 'css',
-                fontProps : properties.typography
+                fontProps : properties.typography,
+                desc : ''
             }
         },
         watch : {
@@ -86,6 +92,7 @@ requirejs(['data/properties'], function(properties) {
                 Object.keys(properties.typography)
                     .forEach(k => this.value.props.push(''));
             }
+            this.compileDesc();
         },
         methods : {
             compileCss : function() {
@@ -97,6 +104,29 @@ requirejs(['data/properties'], function(properties) {
                     ';'
                 this.value.style = this.value.style.replace(/\$([a-z0-9-]+)/i, 'var(--$1)');
                 this.$emit('css-change');
+
+                this.compileDesc();
+            },
+            compileDesc : function() {
+                let pr = this.value.props,
+                    d = [],
+                    name = pr[0].match(/^(.*)[,$]/);
+
+                d.push(
+                    name ? name[0] : '',
+                    pr[1].length === 3 ? 'weight ' + pr[1] : '',
+                    pr[1].length > 3 ? pr[1] : '',
+                    pr[2],
+                    pr[3],
+                    pr[4],
+                    pr[5],
+                    pr[6],
+                    (pr[7] || pr[8]) ? (pr[7] || 'auto') + '-' + (pr[8] || 'auto') + ' spaced' : '',
+                    pr[9] ? 'with shadow' : ''
+                );
+
+                this.desc = d.filter(p => p).join(' | ');
+                
             }
         }
     })

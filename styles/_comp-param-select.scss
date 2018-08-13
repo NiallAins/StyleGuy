@@ -1,0 +1,41 @@
+.param-select {
+    input, .dropdown {
+        width: 130px;
+        padding: 3px 8px;
+        margin: 0 2px;
+        border: none;
+        color: white;
+        background-color: transparent;
+        vertical-align: middle;
+    }
+
+    .px input {
+        width: 60px;
+    }
+
+    .dropdown {
+        padding: 0;
+    }
+
+    .multi-container > div {
+        display: inline-block;
+
+        input {
+            width: 60px;
+        }
+
+        .dropdown {
+            width: 130px;
+        }
+    }
+
+    input:focus,
+    input:focus + .dropdown-container {
+        color: $c-text;
+        background-color: white;
+
+        body[keyboard-nav="off"] & {
+                outline: none;
+        }
+    }
+}

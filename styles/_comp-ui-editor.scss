@@ -1,0 +1,156 @@
+.ui-editor {
+    .bg-mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 15px;
+        width: calc(100vw - 60px);
+        height: calc(100vh - 30px);
+        background-color: white;
+
+        &>div {
+            float: left;
+            box-sizing: border-box;
+        }
+    }
+
+    .left-col {
+        width: 450px;
+    }
+
+    .right-col {
+        width: calc(100% - 450px);
+    }
+
+    .top-row {
+        height: calc(100% - 240px);
+    }
+
+    .bottom-row {
+        height: 240px;
+    }
+
+
+    $expander-ani: 0.2s;
+    .expander {
+        background-color: $c-editor-light;
+        color: white;
+        transition: padding-bottom $expander-ani;
+        font-size: 12px;
+        overflow: hidden;
+        padding-bottom: 1px;
+
+        &.open {
+            padding-bottom: 5px;
+
+            .title {
+                margin-bottom: 5px;
+            }
+        }
+
+        .title {
+            height: 30px;
+            line-height: 30px;
+            padding-left: 15px;
+            margin-bottom: 0;
+            color: white;
+            font-size: 10px;
+            text-transform: uppercase;
+            background-color: $c-editor;
+            transition: margin-bottom $expander-ani;
+            cursor: pointer;
+
+            i {
+                float: right;
+                margin-right: 10px;
+                opacity: 0.4;
+                transition: opacity 0.2s, transform 0.2s;
+            }
+
+            &:hover i {
+                opacity: 0.8;
+            }
+        }
+
+        .prop {
+            transition: max-height $expander-ani;
+            max-height: 0;
+            overflow: hidden;
+            font-family: monospace;
+        }
+
+        &.open .prop {
+            max-height: 24px;
+
+            &.open {
+                max-height: 200px;
+
+                .subprop i {
+                    background-color: $c-editor;
+                }
+            }
+        }
+
+        .prop-row {
+            padding: 2px 0 0 20px;
+
+            input {
+                border: none;
+                background-color: $c-editor-light;
+                color: white;
+            }
+
+            &:hover input,
+            &:hover .dropdown {
+                color: $c-text;
+                background-color: white;
+            }
+        }
+
+        .subprop {
+            position: relative;
+            line-height: 20px;
+            text-indent: 15px;
+
+            &:first-child {
+                text-indent: 0;
+            }
+
+            i {
+                position: absolute;
+                left: 3px;
+                top: -2px;
+                transform: scale(0.6, 0.6);
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $c-editor;
+                }
+            }
+        }
+
+        .label, .sublabel {
+            width: calc(40% - 15px);
+            float: left;
+            padding-left: 15px;
+        }
+
+        .param-select {
+            border: none;
+            width: 60%;
+            float: left;
+        }
+
+    }
+}
