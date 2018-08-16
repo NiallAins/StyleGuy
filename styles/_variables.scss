@@ -1,9 +1,9 @@
 $header-height  : 51px;
 $nav-width      : 200px;
 
-$dropdown-z     : 10;
-$modal-z        : 20;
-$loading-mask-z : 30;
+$dropdown-z     :  30;
+$modal-z        :  20;
+$loading-mask-z :  40;
 
 :root {
   --c-h     : 210;
@@ -13,6 +13,12 @@ $loading-mask-z : 30;
     --c-l-l : 70%;
     --c-l-l2: 85%;
     --c-l-d : 50%;
+
+  --c-e   : #1e1e1e;
+  --c-el  : #3c3c3c;
+  --c-et-1: #d7ba7d;
+  --c-et-2: #a3daed;
+  --c-et-3: #cc8466;
 }
 
 $c-prim         : HSL(var(--c-h), var(--c-s), var(--c-l));
@@ -20,10 +26,15 @@ $c-prim-light   : HSL(var(--c-h), var(--c-s), var(--c-l-l));
 $c-prim-lightest: HSL(var(--c-h), var(--c-s), var(--c-l-l2));
 $c-prim-dark    : HSL(var(--c-h), var(--c-s), var(--c-l-d));
 $c-prim-comp    : HSL(var(--c-h-c), var(--c-s), var(--c-l));
-$c-editor       : #333;
-$c-editor-light : #666;
+
 $c-text         : #333;
 $c-disabled     : #777;
 $c-delete       : #d44;
+
+$c-editor       : var(--c-e);
+$c-editor-light : var(--c-el);
+$c-edit-text-1  : var(--c-et-1);
+$c-edit-text-2  : var(--c-et-2);
+$c-edit-text-3  : var(--c-et-3);
 
 $outline: 2px solid $c-prim-comp;

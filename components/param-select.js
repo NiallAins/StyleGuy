@@ -95,7 +95,6 @@ requirejs(['data/elements'], function(elements) {
                         ></dropdown>
                     </div>
                 </div>
-                {{ value }}
             </div>
         `,
         props: [
@@ -123,7 +122,7 @@ requirejs(['data/elements'], function(elements) {
                     this.list = elements.theme.color.map(c => '$' + c.ref);
                     break;
                 case 'font':
-                    this.list = elements.theme.typography.map(f => '@include font-' + f.ref);
+                    this.list = elements.theme.typography.map(f => f.ref);
                     break;
                 case 'multi':
                     if (this.value) {
@@ -136,7 +135,9 @@ requirejs(['data/elements'], function(elements) {
         },
         watch : {
             value : function(val) {
-                this.$emit('input', this.value);
+                if (typeof val !== 'undefined') {
+                    this.$emit('input', this.value);
+                }
             }
         },
         methods : {

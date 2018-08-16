@@ -29,6 +29,11 @@ Vue.component('element-editor', {
 							>
 								html
 							</li>
+							<li>
+								<button @click="UIEditorOpen = true">
+									Open in Editor
+								</button>
+							</li>
 						</ul>
 						<code v-show="editMode === 'css'">
 							<p>{{ value.selector }} {</p>
@@ -104,6 +109,12 @@ Vue.component('element-editor', {
 					</div>
 				</div>
 			</div>
+			<ui-editor
+				v-model		="value"
+				:class 		="{ open : UIEditorOpen }"
+				@css-change	="$emit('css-change');"
+				@close		="UIEditorOpen = false"
+			></ui-editor>
 		</div>
 	`,
 	props: [
@@ -117,7 +128,8 @@ Vue.component('element-editor', {
 			addClass	: '',
 			addSelector	: '',
 			editUpdate  : null,
-			hasStyleUpdate : false
+			UIEditorOpen: false,
+			hasStyleUpdate : false,
 		}
 	},
 	watch : {
@@ -129,7 +141,7 @@ Vue.component('element-editor', {
 		startEdit : function() {
 			this.editUpdate = setInterval(() => {
 				if (this.hasStyleUpdate) {
-					this.$emit('css-change')
+					this.$emit('css-change');
 					this.hasStyleUpdate = false;
 				}
 			}, 2500);
@@ -139,7 +151,7 @@ Vue.component('element-editor', {
 		},
 		forceUpdate : function() {
 			this.stopEdit();
-			this.$emit('css-change')
+			this.$emit('css-change');
 			this.hasStyleUpdate = false;
 			this.startEdit();
 		},

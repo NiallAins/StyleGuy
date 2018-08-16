@@ -85,6 +85,7 @@ header.-sty {
     }
 }
 
+$nav-ani: 0.2s;
 nav.-sty {
     position: sticky;
     top: 0;
@@ -106,7 +107,7 @@ nav.-sty {
 
             &:after {
                 content: '';
-                transition: all 0.2s;
+                transition: all $nav-ani;
                 position: absolute;
                 top: 0;
                 bottom: 0;
@@ -127,29 +128,29 @@ nav.-sty {
                 }
 
                 ul {
-                    padding: 5px;
                     text-transform: capitalize;
                     font-size: 12px;
+                    padding-top: 10px;
                 }
                 
                 li {
-                    transition: height 0.2s ease 0.2s, padding 0.2s ease 0.2s;
                     height: 16px;
                     padding: 5px;
                     margin: 0;
                 
                     &.selected {
                         cursor: default;
-                        margin-left: 20px;
+                        padding-left: 25px;
                     }
                 }
             }
             
             &>ul {
-                transition: padding 0.2s;
+                transition: padding-top $nav-ani;
+                padding: 0 0 0 10px;
                 
                 &>li {
-                    transition: none;
+                    transition: height $nav-ani, padding $nav-ani;
                     margin: 0;
                     height: 0;
                     padding: 0;

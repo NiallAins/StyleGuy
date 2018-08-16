@@ -7,6 +7,9 @@ requirejs.config({
   }
 });
 
+//Global Variables
+let App, EventHub;
+
 requirejs([
     'comp/dropdown',
     'comp/param-select',

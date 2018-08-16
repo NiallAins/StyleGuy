@@ -38,7 +38,9 @@ requirejs([
 		}
 	}
 
-	new Vue({
+	EventHub = new Vue();
+
+	App = new Vue({
 		el: '[app]',
 		data: {
 			loaded 		: false,
@@ -104,7 +106,12 @@ requirejs([
 				}
 				this.sassCompile.compile(
 					this.sassInject + tempsass,
-					styleObj => styleObj.status === 0 ? this.cssmin = styleObj.text : ''
+					styleObj => {
+						if (styleObj.status === 0) {
+							this.cssmin = styleObj.text;
+							setTimeout(() => EventHub.$emit('css-updated'));
+						}
+					}
 				);
 			},
 			groupHasItems : function(group) {

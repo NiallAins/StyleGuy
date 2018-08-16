@@ -1,3 +1,23 @@
+@mixin thinScroll {
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #fff5;
+      border: 2px solid $c-editor-light;
+      
+      &:hover {
+        background-color: #fff9;
+      }
+    }
+}
+
 body[keyboard-nav="false"] {
     .-sty :focus {
         outline: none;
@@ -65,6 +85,7 @@ body[keyboard-nav="true"] {
     }
 
     code {
+        position: relative;
         display: block;
         padding: 10px;
         background-color: $c-editor;
@@ -73,6 +94,27 @@ body[keyboard-nav="true"] {
         line-height: 16px;
         color: white;
         font-family: "Courier New";
+
+        textarea {
+            @include thinScroll;
+            background-color: transparent;
+            resize: none;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            line-height: 16px;
+            color: white;
+            font-family: "Courier New";
+            width: calc(100% - 13px);
+            height: calc(100% - 10px);
+            position: absolute;
+            top: 6px;
+            left: 8px;
+            padding: 20px;
+            padding-right: 0;
+            white-space: nowrap;
+            overflow: auto;
+        }
     }
 }
 
