@@ -29,11 +29,11 @@ body[keyboard-nav="true"] {
     }
 }
 
-.-sty {
-    [v-cloak] {
-        display: none;
-    }
+[v-cloak] {
+    display: none;
+}
 
+.-sty {
     p {
         font-size: 14px;
     }
