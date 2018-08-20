@@ -1,12 +1,12 @@
 .ui-editor {
     position: relative;
-    z-index: $modal-z;
+    z-index: $z-modal;
 
     .bg-mask {
         position: fixed;
         top: 0;
         left: 0;
-        z-index: $modal-z - 1;
+        z-index: $z-modal - 1;
         width: 100vw;
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.3);
@@ -16,7 +16,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        z-index: $modal-z;
+        z-index: $z-modal;
         border-radius: 4px;
         overflow: hidden;
         margin: 15px;
@@ -34,7 +34,7 @@
         position: absolute;
         right: 15px;
         top: 15px;
-        z-index: $modal-z + 1;
+        z-index: $z-modal + 1;
 
         button {
             padding: 0;
@@ -50,7 +50,7 @@
         @include thinScroll;
         width: 500px;
         height: 100%;
-        background-color: $c-editor-light;
+        background-color: $c-editor-1;
         overflow: auto;
     }
 
@@ -81,16 +81,16 @@
         td {
             width: 33%;
             font-size: 13px;
-            font-family: monospace;
-            color: $c-edit-text-1;
+            font-family: $f-edit;
+            color: $c-edit-hl-1;
 
             .dropdown {
-                background-color: $c-editor-light;
+                background-color: $c-editor-1;
                 width: 100%;
-                border: 1px solid $c-editor;
+                border: 1px solid $c-editor-0;
 
                 &.open, &:hover {
-                    background-color: $c-editor;
+                    background-color: $c-editor-0;
                 }
 
                 &:not(.open) .dropdown-container li.unset {
@@ -108,7 +108,7 @@
 
     $expander-ani: 0.2s;
     .expander {
-        background-color: $c-editor-light;
+        background-color: $c-editor-1;
         color: white;
         transition: padding-bottom $expander-ani;
         font-size: 12px;
@@ -130,7 +130,7 @@
         &+.expander-end {
             height: 15px;
             border-radius: 0 0 15px 15px;
-            background-color: $c-editor;
+            background-color: $c-editor-0;
             cursor: pointer;
         }
 
@@ -141,7 +141,7 @@
             margin-bottom: 0;
             color: white;
             text-transform: capitalize;
-            background-color: $c-editor;
+            background-color: $c-editor-0;
             transition: margin-bottom $expander-ani;
             cursor: pointer;
 
@@ -161,7 +161,7 @@
             transition: max-height $expander-ani;
             max-height: 0;
             overflow: hidden;
-            font-family: monospace;
+            font-family: $f-edit;
         }
 
         &.open .prop {
@@ -171,7 +171,7 @@
                 max-height: 200px;
 
                 .subprop i {
-                    background-color: $c-editor;
+                    background-color: $c-editor-0;
                 }
             }
         }
@@ -181,17 +181,17 @@
 
             input, .dropdown {
                 border: none;
-                font-family: monospace;
-                color: $c-edit-text-3;
+                font-family: $f-edit;
+                color: $c-edit-hl-3;
                 font-weight: bold;
-                background-color: $c-editor-light;
+                background-color: $c-editor-1;
             }
 
             &:hover input,
             &:hover .dropdown,
             .dropdown input:focus,
             .dropdown.open {
-                background-color: $c-editor;
+                background-color: $c-editor-0;
             }
         }
 
@@ -212,13 +212,13 @@
                 cursor: pointer;
 
                 &:hover {
-                    background-color: $c-editor;
+                    background-color: $c-editor-0;
                 }
             }
         }
 
         .label, .sublabel {
-            color: $c-edit-text-2;
+            color: $c-edit-hl-2;
             width: calc(50% - 15px);
             float: left;
             padding-left: 15px;
@@ -279,12 +279,12 @@
                 white-space: nowrap;
                 border-style: solid;
                 border-width: 0;
-                font-family: Helvetica, sans-serif;
+                font-family: $f-default;
                 text-transform: capitalize;
 
                 span {
-                    font-family: monospace;
-                    color: $c-edit-text-3;
+                    font-family: $f-edit;
+                    color: $c-edit-hl-3;
                 }
             }
         }
@@ -397,7 +397,7 @@
                 button {
                     width: 100%;
                     text-align: left;
-                    font-family: monospace;
+                    font-family: $f-edit;
                     font-size: 14px;
                     line-height: 24px;
                     padding: 0 15px;
@@ -431,25 +431,28 @@
             bottom: 0;
             width: 10px;
             height: 10px;
-            background-color: $c-editor-light;
+            background-color: $c-editor-1;
         }
 
         h2 {
             position: absolute;
-            top: -20px;
+            top: -25px;
+            z-index: 2;
             padding: 8px 10px;
+            border: 1px solid $c-editor-0;
+            border-bottom-width: 0;
             border-radius: 5px 5px 0 0;
             color: white;
-            font-family: Helvetica, sans-serif;
+            font-family:    $f-default;
             font-size: 12px;
             font-weight: normal;
-            background-color: $c-editor;
+            background-color: $c-editor-1;
         }
 
         code {
             border-top-left-radius: 0;
-            width: calc(100% - 20px);
-            height: calc(100% - 20px);
+            width: calc(100% - 2px);
+            height: 100%;
         }
     }
 }

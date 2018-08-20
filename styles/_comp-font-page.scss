@@ -2,7 +2,7 @@
     .font-editor {
         .-sty.desc {
             margin: -15px 0 15px;
-            border: 1px solid $c-editor;
+            border: 1px solid $c-editor-0;
             border-radius: 4px;
         }
 
@@ -19,12 +19,8 @@
         .-sty {
             code {
                 line-height: 22px;
-                padding: 28px 48px 35px;
+                padding: 32px 48px 32px;
                 height: auto;
-
-                p {
-                    background: none;
-                }
 
                 .param-name {
                     float: left;
@@ -40,8 +36,7 @@
                 .row:hover .dropdown,
                 input:focus,
                 input:focus + .dropdown-container {
-                    color: $c-text;
-                    background-color: white;
+                    background-color: $c-editor-0;
 
                     body[keyboard-nav="off"] & {
                         outline: none;

@@ -3,7 +3,7 @@
 
   .bg-mask {
     position: fixed;
-    z-index: $modal-z - 1;
+    z-index: $z-modal - 1;
     top: 0;
     left: 0;
     width: 100vw;
@@ -12,7 +12,7 @@
 
   .modal {
     position: relative;
-    z-index: $modal-z;
+    z-index: $z-modal;
     background-color: white;
     padding: 10px 28px 10px 10px;
     border: 1px solid $c-prim-light;
@@ -116,7 +116,7 @@
 
       &:hover {
         &>div input {
-          border-color: $c-editor-light;
+          border-color: $c-editor-1;
           background-color: white;
           color: $c-text;
         }
@@ -159,7 +159,7 @@
       height: 16px;
       border-radius: 100%;
       border: 3px solid $c-prim;
-      box-shadow: 0px 0px 0px 1px $c-editor-light;
+      box-shadow: 0px 0px 0px 1px $c-editor-1;
     }
   }
 

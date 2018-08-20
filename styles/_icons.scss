@@ -24,18 +24,18 @@ $icon : '.-sty i';
   
 #{$icon}.add {
     &:after, &:before {
-    content: '';
-    width: 17px;
-    height: 4px;
-    border-radius: 4px;
-    background-color: white;
-    position: absolute;
-    top: 13px;
-    left: 6px;
+        content: '';
+        width: 17px;
+        height: 4px;
+        border-radius: 4px;
+        background-color: white;
+        position: absolute;
+        top: 13px;
+        left: 7px;
     }
 
     &:after {
-    transform: rotate(90deg);
+        transform: rotate(90deg);
     }
 }
 
@@ -153,11 +153,11 @@ $icon : '.-sty i';
 
     &.dark {
         &:before {
-            border-bottom-color: $c-editor;
+            border-bottom-color: $c-editor-0;
         }
 
         &:after {
-            border-top-color: $c-editor;
+            border-top-color: $c-editor-0;
         }
     }
 }

@@ -1,24 +1,51 @@
 $header-height  : 51px;
 $nav-width      : 200px;
 
-$dropdown-z     :  30;
-$modal-z        :  20;
-$loading-mask-z :  40;
+$z-dropdown     :  30;
+$z-modal        :  20;
+$z-loading-mask :  40;
 
 :root {
-  --c-h     : 210;
-    --c-h-c : 30;
-  --c-s     : 70%;
-  --c-l     : 60%;
-    --c-l-l : 70%;
-    --c-l-l2: 85%;
-    --c-l-d : 50%;
+  --c-h       : 210;
+    --c-h-c   : 30;
+  --c-s       : 70%;
+  --c-l       : 60%;
+    --c-l-l   : 70%;
+    --c-l-l2  : 85%;
+    --c-l-d   : 50%;
 
-  --c-e   : #1e1e1e;
-  --c-el  : #3c3c3c;
-  --c-et-1: #d7ba7d;
-  --c-et-2: #a3daed;
-  --c-et-3: #cc8466;
+  --c-dark-bg-0 : #192227;
+  --c-dark-bg-1 : #263238;
+  --c-dark-bg-2 : #5c6c70;
+  --c-dark-text : #ffffff;
+  --c-dark-hl-0 : #89ddff;
+  --c-dark-hl-1 : #f07178;
+  --c-dark-hl-2 : #ffcb6b;
+  --c-dark-hl-3 : #b2ccd6;
+  --c-dark-hl-4 : #f78c6c;
+  --c-dark-hl-5 : #82aaff;
+
+  --c-light-bg-0 : #f0f0f0;
+  --c-light-bg-1 : #fafafa;
+  --c-light-bg-2 : #dcefed;
+  --c-light-text : #475685;
+  --c-light-hl-0 : #0080b3;
+  --c-light-hl-1 : #ec464f;
+  --c-light-hl-2 : #ffa600;
+  --c-light-hl-3 : #8796b0;
+  --c-light-hl-4 : #f78c6c;
+  --c-light-hl-5 : #82aaff;
+
+  --c-edit-bg-0 : var(--c-dark-bg-0);
+  --c-edit-bg-1 : var(--c-dark-bg-1);
+  --c-edit-bg-2 : var(--c-dark-bg-2);
+  --c-edit-text : var(--c-dark-text);
+  --c-edit-hl-0 : var(--c-dark-hl-0);
+  --c-edit-hl-1 : var(--c-dark-hl-1);
+  --c-edit-hl-2 : var(--c-dark-hl-2);
+  --c-edit-hl-3 : var(--c-dark-hl-3);
+  --c-edit-hl-4 : var(--c-dark-hl-4);
+  --c-edit-hl-5 : var(--c-dark-hl-5);
 }
 
 $c-prim         : HSL(var(--c-h), var(--c-s), var(--c-l));
@@ -31,10 +58,18 @@ $c-text         : #333;
 $c-disabled     : #777;
 $c-delete       : #d44;
 
-$c-editor       : var(--c-e);
-$c-editor-light : var(--c-el);
-$c-edit-text-1  : var(--c-et-1);
-$c-edit-text-2  : var(--c-et-2);
-$c-edit-text-3  : var(--c-et-3);
+$c-editor-0     : var(--c-edit-bg-0);
+$c-editor-1     : var(--c-edit-bg-1);
+$c-editor-2     : var(--c-edit-bg-2);
+$c-edit-text    : var(--c-edit-text);
+$c-edit-hl-0    : var(--c-edit-hl-0);
+$c-edit-hl-1    : var(--c-edit-hl-1);
+$c-edit-hl-2    : var(--c-edit-hl-2);
+$c-edit-hl-3    : var(--c-edit-hl-3);
+$c-edit-hl-4    : var(--c-edit-hl-4);
+$c-edit-hl-5    : var(--c-edit-hl-5);
+
+$f-edit: Consolas, "Courier New", monospace;
+$f-default: Helvetica, Arial, sans-serif;
 
 $outline: 2px solid $c-prim-comp;

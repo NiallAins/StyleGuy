@@ -35,33 +35,36 @@ requirejs(['data/properties'], function(properties) {
                                 >
                                     html
                                 </li>
+                                <li></li>
                             </ul>
-                            <code v-show="editMode === 'css'">
-                                <p>{{ value.selector }} {</p>
-                                    <div
-                                        class="row no-pad-v"
-                                        v-for="(v, k, i) in fontProps"
-                                    >
-                                        <div class="param-name">
-                                            {{ k }} :
-                                        </div>
-                                        <div class="param-value">
-                                            <param-select
-                                                :params     ="v"
-                                                placeholder ="unset"
-                                                v-model     ="value.props[i]"
-                                                @input      ="compileCss"
-                                            ></param-select>
-                                        </div>
+                            <code v-show="editMode === 'css'" class="code-input">
+                                <p hl-1>
+                                    {{ value.selector }}
+                                    <em hl-0>{</em>
+                                </p>
+                                <div
+                                    class="row no-pad-v"
+                                    v-for="(v, k, i) in fontProps"
+                                >
+                                    <div hl-3 class="param-name">
+                                        {{ k }}<em hl-0>:</em>
                                     </div>
-                                <p>}</p>
+                                    <div hl-4 class="param-value">
+                                        <param-select
+                                            :params     ="v"
+                                            placeholder ="unset"
+                                            v-model     ="value.props[i]"
+                                            @input      ="compileCss"
+                                        ></param-select>
+                                    </div>
+                                </div>
+                                <p hl-0>}</p>
                             </code>
-                            <code v-show="editMode === 'html'">
-                                <textarea
-                                    spellcheck  ="false"
-                                    v-model     ="value.markup"
-                                ></textarea>
-                            </code>
+                            <code-input
+                                v-show		="editMode === 'html'"
+                                v-model		="value.markup"
+                                type 		="html"
+                            ></code-input>
                         </div>
 
                         <code v-if="!editable">

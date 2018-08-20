@@ -62,7 +62,7 @@
 	.c-ref,
 	.c-ref input {
 		font-size: 13px;
-		font-family: 'Courier New', Courier, monospace;
+		font-family: $f-edit;
 		font-weight: bolder;  
 		color: live-darken(--c-h, --c-s, --c-l, 30);
 	}

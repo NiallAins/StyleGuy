@@ -12,6 +12,7 @@ let App, EventHub;
 
 requirejs([
     'comp/dropdown',
+    'comp/code-input',
     'comp/param-select',
     'comp/font-editor',
     'comp/font-page',

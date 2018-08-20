@@ -71,7 +71,7 @@
     }
 
     &.open {
-        z-index: $dropdown-z;
+        z-index: $z-dropdown;
 
         .scroll-container {
             position : fixed;
@@ -85,7 +85,7 @@
 
         ul {
             transition: top 0.2s, z-index 0s;
-            border-color: $c-editor-light;
+            border-color: $c-editor-1;
 
             li:hover {
                 background-color: $c-prim-light;

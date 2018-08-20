@@ -35,29 +35,28 @@ Vue.component('element-editor', {
 								</button>
 							</li>
 						</ul>
-						<code v-show="editMode === 'css'">
-							<p>{{ value.selector }} {</p>
-								<textarea
-									spellcheck	="false"
-									v-model		="value.style"
-									@input 		="hasStyleUpdate = true"
-									@keyup.186	="forceUpdate"
-									@focus		="startEdit"
-									@blur		="stopEdit"
-								></textarea>
-							<p>}</p>
-						</code>
-						<code v-show="editMode === 'html'">
-							<textarea
-								spellcheck	="false"	
-								v-model		="value.markup"
-							></textarea>
-						</code>
+						<code-input
+							v-show			="editMode === 'css'"
+							v-model			="value.style"
+							type 			="css"
+							:wrapSelector	="value.selector"
+							@input 			="hasStyleUpdate = true;"
+							@keyLineEnd		="forceUpdate"
+							@focus			="startEdit"
+							@blur			="stopEdit"
+						></code-input>
+						<code-input
+							v-show		="editMode === 'html'"
+							v-model		="value.markup"
+							type 		="html"
+						></code-input>
 					</div>
-
-					<code v-if="!editable">
-						{{ value.markup }}
-					</code>
+					<code-input
+						v-if		="!editable"
+						v-model		="value.markup"
+						type 		="html"
+						:static		="true"
+					></code-input>
 				</div>
 			</div>
 			<div class="row" v-if="editable">
@@ -129,7 +128,7 @@ Vue.component('element-editor', {
 			addSelector	: '',
 			editUpdate  : null,
 			UIEditorOpen: false,
-			hasStyleUpdate : false,
+			hasStyleUpdate : false
 		}
 	},
 	watch : {

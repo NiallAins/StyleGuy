@@ -210,12 +210,10 @@ requirejs(['data/properties'], function(properties) {
                     </div>
                     <div class="bottom-row right-col edit-html -sty">
                         <h2> Element HTML </h2>
-                        <code>
-                            <textarea
-								spellcheck	="false"	
-								v-model		="value.markup"
-							></textarea>
-                        </code>
+                        <code-input
+                            v-model ="value.markup"
+							type    ="html"	
+						></code-input>
                     </div>
                 </div>
             </div>

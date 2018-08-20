@@ -4,7 +4,7 @@ body {
     background-color: $c-prim-light;
 
     .-sty {
-        font-family: "Helvetica";
+        font-family: $f-default;
         color: $c-text;
     }
 }
@@ -13,7 +13,7 @@ body {
     position: fixed;
     left: 0;
     top: $header-height;
-    z-index: $loading-mask-z;
+    z-index: $z-loading-mask;
     height: calc(100vh - #{$header-height});
     width: 100vw;
     background-color: white;
@@ -137,6 +137,10 @@ nav.-sty {
                     height: 16px;
                     padding: 5px;
                     margin: 0;
+
+                    &:hover {
+                        padding-left: 12px;
+                    }
                 
                     &.selected {
                         cursor: default;

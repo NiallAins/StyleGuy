@@ -1,0 +1,98 @@
+.-sty .code-input {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    min-height: 200px;
+    border: 1px solid $c-editor-0;
+    border-radius: 5px;
+    font-size: 13px;
+    background-color: $c-editor-1;
+
+    textarea, .textMirror, .selectionMirror {
+        @include thinScroll;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        border: none;
+        overflow: auto;
+        font-family: $f-edit;
+        font-size: 13px;
+        line-height: 16px;
+        white-space: nowrap;
+    }
+
+    textarea {
+        z-index: 10;
+        opacity: 0;
+    }
+
+    .textMirror {
+        z-index: 5;
+        color: $c-edit-text;
+        background-color: transparent;
+        white-space: pre;
+
+        @keyframes blink {
+            0%   { opacity: 1 }
+            30%  { opacity: 1 }
+            60%  { opacity: 0 }
+            100% { opacity: 1 }
+        }
+
+        .caret {
+            position: absolute;
+            width: 2px;
+            height: 13px;
+            background-color: $c-edit-text;
+            opacity: 0;
+            transition: opacity 0.1s;
+
+            &.focus {
+                opacity: 1;
+                
+                &.blink {
+                    animation: blink 1s infinite;
+                }
+            }
+        }
+    }
+
+    .selectionMirror {
+        z-index: 4;
+        color: transparent;
+        pointer-events: none;
+    }
+
+    &.has-wrapper {
+        textarea, .textMirror {
+            left: 26px;
+            top: 29px;
+            width: calc(100% - 36px);
+            height: calc(100% - 60px);
+        }
+    }
+
+    p {
+        position: absolute;
+        left: 0;
+        z-index: 5;
+        width: calc(100% - 10px);
+        height: 20px;
+        margin: 0;
+        font-family: $f-edit;
+        font-size: 13px;
+        background-color: $c-editor-1;
+        
+        &:first-child {
+            top: 0;
+            padding: 11px 0 0 10px;
+        }
+        
+        &:last-child {
+            bottom: 0;
+            padding: 0 0 11px 10px;
+        }
+    }
+}

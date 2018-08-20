@@ -10,7 +10,7 @@
 
     &::-webkit-scrollbar-thumb {
       background-color: #fff5;
-      border: 2px solid $c-editor-light;
+      border: 2px solid $c-editor-1;
       
       &:hover {
         background-color: #fff9;
@@ -29,15 +29,15 @@ body[keyboard-nav="true"] {
     }
 }
 
-[v-cloak] {
-    display: none;
-}
-
-.-sty p {
-    font-size: 14px;
-}
-
 .-sty {
+    [v-cloak] {
+        display: none;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
     button {
         background: none;
         border: none;
@@ -84,112 +84,101 @@ body[keyboard-nav="true"] {
         }
     }
 
-    code {
-        position: relative;
-        display: block;
-        padding: 10px;
-        background-color: $c-editor;
-        border-radius: 5px;
-        font-size: 14px;
-        line-height: 16px;
-        color: white;
-        font-family: "Courier New";
+    input {
+        border-radius: 4px;
+        border-width: 1px;
+        
+        &[type=number] {
+            -moz-appearance: textfield;
 
-        textarea {
-            @include thinScroll;
-            background-color: transparent;
-            resize: none;
-            border: none;
-            outline: none;
-            font-size: 14px;
-            line-height: 16px;
-            color: white;
-            font-family: "Courier New";
-            width: calc(100% - 13px);
-            height: calc(100% - 10px);
-            position: absolute;
-            top: 6px;
-            left: 8px;
-            padding: 20px;
-            padding-right: 0;
-            white-space: nowrap;
-            overflow: auto;
+            &::-webkit-inner-spin-button, 
+            &::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                appearance: none;
+                margin: 0;
+            }
         }
     }
-}
 
-.-sty input {
-    border-radius: 4px;
-    border-width: 1px;
-    
-    &[type=number] {
-        -moz-appearance: textfield;
+    input,
+    .dropdown {
+        font-size: 13px;
+    }
 
-        &::-webkit-inner-spin-button, 
-        &::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            appearance: none;
-            margin: 0;
+    em {
+        font-style: normal;
+    }
+
+    @for $i from 0 through 5 {
+        [hl-#{$i}] {
+            &, & .param-select {
+                color: var(--c-edit-hl-#{$i});
+            }
         }
     }
-}
 
-.-sty input,
-.-sty .dropdown {
-    font-size: 13px;
-}
+    [hl-sel] {
+        background-color: $c-editor-2;
+        border-radius: 4px;
+    }
 
-@keyframes load-outer {
-    0% {
-      opacity: 1;
-      top: 30%;
-      left: 30%;
-      width: 40%;
-      height: 40%;
+    .type-css  [hl-5],
+    .type-html [hl-3] {
+        font-style: italic;
     }
-    100% {
-      opacity: 0;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-  }
-  @keyframes load-inner {
-    20% {
-      top: 50%;
-      left: 50%;
-      width: 0%;
-      height: 0%;
-    }
-    100% {
-      top: 30%;
-      left: 30%;
-      width: 40%;
-      height: 40%;
-    }
-}
 
-.loader {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-    
-    &:before, &:after {
-        content: ' ';
-        display: inline-block;
-        position: absolute;
+    @keyframes load-outer {
+        0% {
+        opacity: 1;
+        top: 30%;
+        left: 30%;
+        width: 40%;
+        height: 40%;
+        }
+        100% {
+        opacity: 0;
         top: 0;
-        border-radius: 100%;
-        background-color: $c-prim;
-        animation: loader 2s infinite;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        }
     }
-    
-    &:before {
-        animation: load-inner 3s cubic-bezier(0.15, 0.75, 0, 2.25) infinite;
+    @keyframes load-inner {
+        20% {
+        top: 50%;
+        left: 50%;
+        width: 0%;
+        height: 0%;
+        }
+        100% {
+        top: 30%;
+        left: 30%;
+        width: 40%;
+        height: 40%;
+        }
     }
-    &:after {
-        animation: load-outer 3s infinite;
+
+    .loader {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+        
+        &:before, &:after {
+            content: ' ';
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            border-radius: 100%;
+            background-color: $c-prim;
+            animation: loader 2s infinite;
+        }
+        
+        &:before {
+            animation: load-inner 3s cubic-bezier(0.15, 0.75, 0, 2.25) infinite;
+        }
+        &:after {
+            animation: load-outer 3s infinite;
+        }
     }
 }
