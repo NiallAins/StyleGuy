@@ -1,11 +1,6 @@
 Vue.component('color-page', {
 	template: `
 		<div class="color-page -sty">
-			<p>
-				Colors can be referenced elsewhere in the style guide using their sass variable name.
-				<br/>
-				Colors can be referenced in external stylesheets using their css variable name.
-			</p>
 			<div
 				class="row"
 				v-for="(color, index) in value"

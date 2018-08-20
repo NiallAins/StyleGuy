@@ -1,11 +1,6 @@
 Vue.component('font-page', {
 	template: `
         <div class="font-page">
-            <p class="-sty">
-                Fonts can be referenced elsewhere in the styleguide with a sass mixin:
-                <br/>
-                @include font-[font name]
-            </p>
             <font-editor
                 v-for       ="font in value"
                 v-model     ="font"
