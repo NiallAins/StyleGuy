@@ -85,7 +85,7 @@ Vue.component('color-page', {
 			<color-picker
 				v-if			="editing > -1"
 				v-model			="value[editing].hex"
-				:style			="{ top: (editing * 80) + 100 + 'px' }"
+				:style			="{ top: (editing * 80) + 42 + 'px' }"
 				:hideControls	="true"
 				:disableBackdrop="true"
 			></color-picker>
