@@ -63,14 +63,11 @@
 	.c-ref input {
 		font-size: 13px;
 		font-family: $f-edit;
-		font-weight: bolder;  
-		color: live-darken(--c-h, --c-s, --c-l, 30);
 	}
 	
 	.c-ref input {
 		padding: 5px;
 		padding-left: 2px;
-		margin-left: 2px;
 		border-radius: 4px;
 		border: none;
 	}

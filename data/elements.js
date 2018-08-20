@@ -1,7 +1,7 @@
 define({
   "theme" : {
     "color" : [
-      {"ref" : "c-prim", "hex" : "#000000"}
+      {"ref" : "c-primary", "hex" : "#000000"}
     ],
     "typography" : [
       {"selector" : "body", "props" : [], "markup" : '<span> Some text in default font </span>' } 
