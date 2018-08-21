@@ -20,7 +20,7 @@
         font-family: $f-edit;
         font-size: 13px;
         line-height: 16px;
-        white-space: nowrap;
+        white-space: pre;
     }
 
     textarea {
@@ -32,7 +32,6 @@
         z-index: 5;
         color: $c-edit-text;
         background-color: transparent;
-        white-space: pre;
 
         @keyframes blink {
             0%   { opacity: 1 }
@@ -66,7 +65,7 @@
     }
 
     &.has-wrapper {
-        textarea, .textMirror {
+        textarea, .textMirror, .selectionMirror {
             left: 26px;
             top: 29px;
             width: calc(100% - 36px);

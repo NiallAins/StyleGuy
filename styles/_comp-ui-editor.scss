@@ -69,7 +69,7 @@
     .element-select {
         width: 100%;
         padding: 15px;
-        color: white;
+        color: $c-edit-text;
 
         th {
             text-align: left;
@@ -95,7 +95,7 @@
 
                 &:not(.open) .dropdown-container li.unset {
                     text-transform: uppercase;
-                    color: white;
+                    color: $c-edit-text;
                     font-size: 11px;
                 }
             }
@@ -109,7 +109,7 @@
     $expander-ani: 0.2s;
     .expander {
         background-color: $c-editor-1;
-        color: white;
+        color: $c-edit-text;
         transition: padding-bottom $expander-ani;
         font-size: 12px;
         overflow: hidden;
@@ -139,7 +139,7 @@
             line-height: 30px;
             padding-left: 15px;
             margin-bottom: 0;
-            color: white;
+            color: $c-edit-text;
             text-transform: capitalize;
             background-color: $c-editor-0;
             transition: margin-bottom $expander-ani;
@@ -150,6 +150,10 @@
                 margin-right: 10px;
                 opacity: 0.4;
                 transition: opacity 0.2s, transform 0.2s;
+
+                &:after {
+                    border-top-color: $c-edit-text;
+                }
             }
 
             &:hover i {
@@ -213,6 +217,14 @@
 
                 &:hover {
                     background-color: $c-editor-0;
+                }
+
+                &:after, &:before {
+                    background-color: $c-edit-text;
+                }
+
+                &:after {
+                    box-shadow: 8px 0 0 0 $c-edit-text;
                 }
             }
         }
@@ -367,7 +379,7 @@
                 width: 36px;
                 height: 36px;
                 background-color: $c-prim;
-                color: white;
+                color: $c-text-on-bg;
                 border-radius: 18px;
                 overflow: hidden;
 
@@ -442,7 +454,7 @@
             border: 1px solid $c-editor-0;
             border-bottom-width: 0;
             border-radius: 5px 5px 0 0;
-            color: white;
+            color: $c-edit-text;
             font-family:    $f-default;
             font-size: 12px;
             font-weight: normal;

@@ -8,6 +8,10 @@ $icon : '.-sty i';
     background-color: $c-prim;
     position: relative;
     border-radius: 100%;
+
+    &:before, &:after {
+        background-color: $c-text-on-bg;
+    }
   
     &.sm {
       transform: scale(0.75, 0.75);
@@ -23,12 +27,11 @@ $icon : '.-sty i';
 }
   
 #{$icon}.add {
-    &:after, &:before {
+    &:before, &:after {
         content: '';
         width: 17px;
         height: 4px;
         border-radius: 4px;
-        background-color: white;
         position: absolute;
         top: 13px;
         left: 7px;
@@ -40,23 +43,22 @@ $icon : '.-sty i';
 }
 
 #{$icon}.cancel {
-    &:after, &:before {
+    &:before, &:after {
         content: '';
         width: 17px;
         height: 4px;
         border-radius: 4px;
-        background-color: white;
         position: absolute;
         top: 13px;
         left: 7px;
     }
 
-    &:after {
-        transform: rotate(45deg);
-    }
-
     &:before {
         transform: rotate(-45deg);
+    }
+
+    &:after {
+        transform: rotate(45deg);
     }
 }
 
@@ -65,13 +67,14 @@ $icon : '.-sty i';
         content: '';
         width: 5px;
         height: 14px;
-        border: 3px solid white;
+        border: 3px solid $c-text-on-bg;
         border-width: 0 3px 3px 0;
         border-radius: 4px 0;
         position: absolute;
-        top: 5px;
+        top: 6px;
         left: 11px;
         transform: rotate(45deg);
+        background-color: unset;
     }
 }
 
@@ -83,7 +86,6 @@ $icon : '.-sty i';
         left: 7px;
         width: 5px;
         height: 5px;
-        background-color: white;
     }
 
     &:after {
@@ -93,7 +95,6 @@ $icon : '.-sty i';
         left: 12px;
         width: 6px;
         height: 14px;
-        background-color: white;
         border-bottom: 1px solid $c-prim;
         transform: rotate(45deg);
     }
@@ -105,7 +106,6 @@ $icon : '.-sty i';
         width: 17px;
         height: 4px;
         border-radius: 4px;
-        background-color: white;
         position: absolute;
         top: 13px;
         left: 6px;
@@ -119,12 +119,10 @@ $icon : '.-sty i';
         content: '';
         position: absolute;
         border: 8px solid transparent;
-    }
-
-    &:after {
         top: 11px;
         left: 7px;
-        border-top-color: white;
+        border-top-color: $c-text-on-bg;
+        background-color: unset;
     }
 
     &.rotate {
@@ -137,18 +135,19 @@ $icon : '.-sty i';
         content: '';
         position: absolute;
         border: 8px solid transparent;
+        background-color: unset;
     }
 
     &:before {
         top: -3px;
         left: 7px;
-        border-bottom-color: white;
+        border-bottom-color: $c-text-on-bg;
     }
 
     &:after {
         top: 16px;
         left: 7px;
-        border-top-color: white;
+        border-top-color: $c-text-on-bg;
     }
 
     &.dark {
@@ -170,7 +169,6 @@ $icon : '.-sty i';
         width: 4px;
         height: 4px;
         border-radius: 100%;
-        background-color: white;
     }
 
     &:before {
@@ -179,7 +177,7 @@ $icon : '.-sty i';
 
     &:after {
         left: 14px;
-        box-shadow: 8px 0 0 0 white;
+        box-shadow: 8px 0 0 0 $c-text-on-bg;
     }
 }
 
@@ -187,7 +185,7 @@ $icon : '.-sty i';
     &:before, &:after {
         content: '';
         position: absolute;
-        border: 2px solid white;
+        border: 2px solid $c-text-on-bg;
     }
 
     &:before {
@@ -205,6 +203,7 @@ $icon : '.-sty i';
         width: 9px;
         height: 9px;
         border-radius: 100%;
+        background-color: unset;
     }
 }
 
@@ -212,7 +211,8 @@ $icon : '.-sty i';
     &:before, &:after {
         content: '';
         position: absolute;
-        border: 2px solid white;
+        border: 2px solid $c-text-on-bg;
+        background-color: unset;
     }
 
     &:before {

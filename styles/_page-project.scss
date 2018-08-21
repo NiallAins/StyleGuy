@@ -1,0 +1,106 @@
+.page-project.-sty {
+    .container {
+        width: 450px;
+        margin: 15px auto;
+        border-radius: 6px;
+    }
+
+    table {
+        width: 100%;
+
+        th, td {
+            text-align: left;
+
+            &:last-child {
+                width: 60%;
+            }
+        }
+
+        th {
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 12px;
+            padding: 20px 0 5px;
+        }
+
+        td {
+            font-size: 13px;
+            padding: 6px 0;
+
+            &:first-child {
+                padding-left: 10px;
+            }
+
+            &>input[type="text"] {
+                width: calc(100% - 18px);
+                border: 1px solid #aaa;
+                padding: 6px 8px;
+
+                &::placeholder,
+                &::-moz-placeholder {
+                    color: #aaa;
+                    font-style: italic;
+                }
+            }
+
+            &.picker-anchor {
+                position: relative;
+
+                .color-block {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 100%;
+                    height: 15px;
+                    padding: 7px 0;
+                    border-radius: 4px;
+                    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.2);
+                    cursor: pointer;
+
+                    text-align: center;
+                    vertical-align: middle;
+                    color: $c-text-on-bg;
+                }
+
+                .color-picker {
+                    top: -14px;
+                    left: -12px;
+
+                    .bg-mask {
+                        background-color: rgba(0, 0, 0, 0.1);
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            &>button {
+                width: 49%;
+                padding: 6px 0;
+                border-radius: 6px;
+                text-transform: uppercase;
+                font-size: 11px;
+
+                &:first-child {
+                    background-color: var(--c-dark-bg-0);
+                    color: var(--c-dark-text);
+
+                    &:hover {
+                        background-color: var(--c-dark-bg-1);
+                    }
+                }
+
+                &:last-child {
+                    background-color: var(--c-light-bg-0);
+                    color: var(--c-light-text);
+
+                    &:hover {
+                        background-color: var(--c-light-bg-1);
+                    }
+                }
+
+                &.selected {
+                    box-shadow: 0 0 4px 2px $c-prim; 
+                }
+            }
+        }
+    }
+}

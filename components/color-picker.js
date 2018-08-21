@@ -13,7 +13,7 @@ Vue.component('color-picker', {
 						:editmode	="editMode"
 						:style	="{
 							backgroundColor : value,
-							color : l / a > 50  ? 'black' : 'white' 
+							color : l / a > 75  ? 'black' : 'white' 
 						}"
 					>
 						<div class="hsl">
@@ -178,7 +178,25 @@ Vue.component('color-picker', {
 	},
 	methods : {
 		close : function(select) {
-			this.$emit('close', select ? 'select' : 'cancel');
+			if (select) {
+				this.$emit(
+					'close',
+					{
+						h : this.h,
+						s : this.s,
+						l : this.l,
+						r : this.r,
+						g : this.g,
+						b : this.b,
+						a : this.a,
+						hsla : `hsla(${this.h}, ${this.s}%, ${this.l}%${this.a < 1 ? ' ,' + this.a : ''})`,
+						rgba : `rgba(${this.r}, ${this.g}%, ${this.b}%${this.a < 1 ? ' ,' + this.a : ''})`,
+						hex  : this.value
+					}
+				);
+			} else {
+				this.$emit('close', null);
+			}
 		},
 		setXY : function(e) {
 			if (e) {
@@ -194,19 +212,6 @@ Vue.component('color-picker', {
 		setValue : function(e) {
 			this.value = '#' + this.hex;
 			this.$emit('input', this.value);
-
-			this.$emit('colorObj', {
-				h : this.h,
-				s : this.s,
-				l : this.l,
-				r : this.r,
-				g : this.g,
-				b : this.b,
-				a : this.a,
-				hsla : `hsla(${this.h}, ${this.s}%, ${this.l}%${this.a < 1 ? ' ,' + this.a : ''})`,
-				rgba : `rgba(${this.r}, ${this.g}%, ${this.b}%${this.a < 1 ? ' ,' + this.a : ''})`,
-				hex  : this.value
-			});
 		},
 		syncFrom : function(form) {
 			if (form === 'hsl') {

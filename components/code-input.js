@@ -21,11 +21,8 @@ Vue.component('code-input', {
                 @mouseup    ="drag = false"
                 @mousemove  ="drag ? updateMirror() : ''"
                 @click      ="updateCaret"
-                @keyup.37   ="updateCaret"
-                @keyup.38   ="updateCaret"
-                @keyup.39   ="updateCaret"
-                @keyup.40   ="updateCaret"
-                @keyup.186  ="$emit('keyLineEnd')"
+                @keyup      ="checkKey(true, $event.keyCode)"
+                @keydown    ="checkKey(false, $event.keyCode)"
                 @focus      ="
                     focused = true;
                     $emit('focus')
@@ -74,7 +71,8 @@ Vue.component('code-input', {
             caretBlink  : true,
             drag        : false,
             selectionMirror : '',
-            htmlStyles : [
+            arrowKeyCheck   : 0,
+            htmlStyles      : [
                 new RegExp(/(=|"|<|>|\/)/g),
                 new RegExp(/<\/?([^ \/>]+)/g),
                 new RegExp(/<[^>]+ ([a-z0-9_-]+)/g),
@@ -87,6 +85,22 @@ Vue.component('code-input', {
         this.updateMirror();
     },
     methods : {
+        checkKey : function(up, key) {
+            if (up && key === 186) {
+                $emit('keyLineEnd');
+                return;
+            }
+
+            if (key >= 37 && key <= 40) {
+                if (up) {
+                    clearInterval(this.arrowKeyCheck);
+                    this.arrowKeyCheck = 0;
+                    this.updateCaret();
+                } else if (!this.arrowKeyCheck) {
+                    this.arrowKeyCheck = setInterval(() => this.updateCaret(0), 50);
+                }
+            }
+        },
         updateMirror : function() {
             if (!this.static) {
                 let pos = 0;
@@ -106,26 +120,14 @@ Vue.component('code-input', {
 
             if (this.type === 'css') {
                 this.styledText = this.value
-                    .replace(
-                        /(\.[^{,]+)({|,)/g,
-                        '<em hl-2>$1</em>$2'
-                    )
-                    .replace(
-                        /(^|})([^{]+){/g,
-                        '$1<em hl-1>$2</em>{'
-                    )
-                    .replace(
-                        /(^|{|;)([^:]+):/g,
-                        '$1<em hl-3>$2</em>:'
-                    )
-                    .replace(
-                        /:([^;]+);/g,
-                        ':<em hl-4>$1</em>;'
-                    )
-                    .replace(
-                        /(:|\{|\}|,|;)/g,
-                        '<em hl-0>$1</em>'
-                    );
+                    .replace(/(calc|through|from|return)/gi, '<em hl-5>$1</em>')
+                    .replace(/(\.[^{,]+)({|,)/g, '<em hl-2>$1</em>$2')
+                    .replace(/(^|})([^{:]+){/g, '$1<em hl-1>$2</em>{')
+                    .replace(/:([^,{;]+)(,|{)/g, ':<em hl-5>$1</em>$2')
+                    .replace(/(^|{|;)([^:;{]+):/g, '$1<em hl-3>$2</em>:')
+                    .replace(/:([^;:{]+);/g, ':<em hl-4>$1</em>;')
+                    .replace(/((@|\$)[^ \n]*)/g, '<em hl-5>$1</em>')
+                    .replace(/(&|:|\{|\}|,|;|\[|\]|#|\(|\))/g, '<em hl-0>$1</em>');
             } else if (this.type === 'html') {
                 let styleInserts = [],
                     result;
@@ -186,7 +188,7 @@ Vue.component('code-input', {
                 }
             }
         }
-    }           
+    }
 });
 
 {/* <em hl-sel>ra<</em>

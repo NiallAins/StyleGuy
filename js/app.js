@@ -29,8 +29,8 @@ requirejs([
 		this.setAttribute('keyboard-nav', 'false');
 	});
 
-	let initGroup = Object.keys(elements)[0],
-	initItem  = Object.keys(elements[initGroup])[0];
+	let firstGroup = Object.keys(elements)[0],
+	firstItem  = Object.keys(elements[firstGroup])[0];
 
 	for(g in elements) {
 		for (i in elements[g]) {
@@ -46,13 +46,19 @@ requirejs([
 			loaded 		: false,
 			cssmin 		: '',
 			sassInject 	: '',
-			tab 		: 'edit',
-			menuGroup 	: initGroup,
-			menuItem 	: initItem,
-			page 		: elements[initGroup][initItem],
+			tab 		: 'project',
+			menuGroup 	: firstGroup,
+			menuItem 	: firstItem,
+			page 		: elements[firstGroup][firstItem],
 			menu 		: elements,
 			properties  : properties,
-			sassCompile : new Sass()
+			sassCompile : new Sass(),
+			
+			projectTitle : '',
+			themeColor	: '#5299e0',
+			themeLogo	: '',
+			themeColorPicker : false,
+			themeEditor	: 'dark'
 		},
 		created : function() {
 			this.generateCss();
@@ -129,6 +135,38 @@ requirejs([
 					justCreated : true
 				};
 				item.splice(index + 1, 0, newEl);
+			},
+			setThemeColor : function(colorObj) {
+				if (colorObj) {
+					let changeVar = (name, value) => document.body.style.setProperty('--c-' + name, value);
+					let h = colorObj.h,
+						s = colorObj.s,
+						l = colorObj.l;
+
+					changeVar('h', 				    h);
+					changeVar('h-c',  (h + 180) % 360);
+					changeVar('s', 	   	      s + '%');
+					changeVar('l',  		  l + '%');
+					changeVar('l-l', (l * 1.15) + '%');
+					changeVar('l-l2', (l * 1.4) + '%');
+					changeVar('l-d', (l * 0.85) + '%');
+					changeVar('t', (l > 75 ? 'var(--c-text-dark)' : 'var(--c-text-light)'));
+
+					this.themeColor = colorObj.hex;
+				}
+			},
+			toggleEditorTheme : function() {
+				this.themeEditor = (this.themeEditor === 'dark' ? 'light' : 'dark');
+				[
+					'bg-0', 'bg-1', 'bg-2', 
+					'text',
+					'hl-0','hl-1', 'hl-2', 'hl-3', 'hl-4', 'hl-5'
+				].forEach(c => {
+					document.body.style.setProperty(
+						'--c-edit-' + c,
+						'var(--c-' + this.themeEditor + '-' + c + ')'
+					);
+				});
 			}
 		}
 	});

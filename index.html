@@ -57,25 +57,77 @@
         </div>
 
         <main>
-            <section v-show="tab === 'project'" class="row -sty">
-                <h3> #todo </h3>
-                <ul>
-                    <li>project name</li>
-                    <li>load preset</li>
-                    <ul>
-                        <li>from savefile</li>
-                        <li>normalize</li>
-                    </ul>
-                    <li>set theme</li>
-                    <ul>    
-                        <li>color</li>
-                        <li>menu & button style</li>
-                        <li>snippet theme</li>
-                        <li>logo</li>
-                    </ul>
-                    <li>password protect</li>
-                    <li>delete project</li>
-                </ul>
+            <section v-show="tab === 'project'" class="row -sty page-project">
+                <div class="container">
+                    <table>
+                        <tr>
+                            <th>Details</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Project Title</td>
+                            <td>
+                                <input
+                                    type        ="text" 
+                                    v-model     ="projectTitle"
+                                    placeholder ="New style guide"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Theme</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Brand Color</td>
+                            <td class="picker-anchor">
+                                <div
+                                    class   ="color-block"
+                                    tabindex="0"
+                                    :style  ="{ backgroundColor: themeColor }"
+                                    @click  ="themeColorPicker = true"
+                                >
+                                    {{ themeColor }}
+                                </div>
+                                <color-picker
+                                    v-show  ="themeColorPicker"
+                                    :value  ="themeColor"
+                                    @close  ="
+                                        themeColorPicker = false;
+                                        setThemeColor($event);
+                                    "
+                                ></color-picker>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Brand Logo URL</td>
+                            <td>
+                                <input
+                                    type        ="text"
+                                    v-model     ="themeLogo"
+                                    placeholder ="http://your-site/your-logo.png"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Code Snippet Theme</td>
+                            <td>
+                                <button
+                                    :class="{selected : themeEditor === 'dark'}"
+                                    @click="toggleEditorTheme()"
+                                >
+                                    Dark
+                                </button>
+                                <button
+                                    :class="{selected : themeEditor === 'light'}"
+                                    @click="toggleEditorTheme()"
+                                >
+                                    Light
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </section>
 
             <section v-show="tab === 'view' || tab === 'edit'" class="row fill-height">
