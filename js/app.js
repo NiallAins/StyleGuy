@@ -55,7 +55,7 @@ requirejs([
 			sassCompile : new Sass(),
 			
 			projectTitle : '',
-			themeColor	: '#5299e0',
+			themeColor	: '#5299E0',
 			themeLogo	: '',
 			themeColorPicker : false,
 			themeEditor	: 'dark'

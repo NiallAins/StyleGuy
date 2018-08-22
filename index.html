@@ -90,8 +90,8 @@
                                     {{ themeColor }}
                                 </div>
                                 <color-picker
-                                    v-show  ="themeColorPicker"
                                     :value  ="themeColor"
+                                    :class  ="{open : themeColorPicker}"
                                     @close  ="
                                         themeColorPicker = false;
                                         setThemeColor($event);

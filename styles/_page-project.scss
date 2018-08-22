@@ -49,10 +49,11 @@
                 .color-block {
                     display: inline-block;
                     vertical-align: middle;
-                    width: 100%;
+                    width: 240px;
                     height: 15px;
-                    padding: 7px 0;
-                    border-radius: 4px;
+                    padding: 7px 18px 7px 0;
+                    border-radius: 6px;
+                    margin-left: 4px;
                     box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.2);
                     cursor: pointer;
 
@@ -62,9 +63,27 @@
                 }
 
                 .color-picker {
-                    top: -14px;
-                    left: -12px;
+                    overflow: hidden;
+                    top: -6px;
+                    left: -8px;
+                    height: 0px;
+                    z-index: -10;
+                    transition: z-index 0s linear 0.2s height 0.2s;
 
+                    .bg-mask {
+                        opacity: 0;
+                        transition: opacity 0.2s;
+                    }
+
+                    &.open {
+                        z-index: 10;
+                        height: 382px;
+                        transition: height 0.2s;
+
+                        .bg-mask {
+                            opacity: 1;
+                        }
+                    }
                     .bg-mask {
                         background-color: rgba(0, 0, 0, 0.1);
                         cursor: pointer;
