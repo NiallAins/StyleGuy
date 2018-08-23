@@ -55,7 +55,7 @@ body[keyboard-nav="true"] {
 
         &:hover {
             background-color: $c-prim-light;
-            color: white;
+            color: $c-text-on-bg;
 
             i {
                 background-color: $c-prim-light;
@@ -117,14 +117,31 @@ body[keyboard-nav="true"] {
         }
     }
 
-    [hl-sel] {
-        background-color: $c-editor-2;
-        border-radius: 4px;
+    $css-hl: '.type-css .hljs';
+    #{$css-hl} {
+        &-selector-attr { color: var(--c-edit-hl-0); }
+        &-selector-tag  { color: var(--c-edit-hl-1); }
+        &-selector-class{ color: var(--c-edit-hl-2); }
+        &-attribute     { color: var(--c-edit-hl-3); }
+        &-variable      { color: var(--c-edit-hl-4); }
+        &-number        { color: var(--c-edit-hl-4); }
+        &-keyword       { color: var(--c-edit-hl-5); }
     }
 
-    .type-css  [hl-5],
-    .type-html [hl-2] {
-        font-style: italic;
+    $html-hl: '.type-html .hljs';
+    #{$html-hl} {
+        &-tag       { color: var(--c-edit-hl-0); }
+        &-name      { color: var(--c-edit-hl-1); }
+        &-attr      { color: var(--c-edit-hl-2); }
+        &-string {
+            color: var(--c-edit-hl-3);
+            font-style: italic;
+        }
+    }
+
+    .hljs-sel {
+        background-color: $c-editor-2;
+        border-radius: 4px;
     }
 
     @keyframes load-outer {

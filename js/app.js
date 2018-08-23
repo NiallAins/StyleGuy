@@ -30,7 +30,7 @@ requirejs([
 	});
 
 	let firstGroup = Object.keys(elements)[0],
-	firstItem  = Object.keys(elements[firstGroup])[0];
+		firstItem  = Object.keys(elements[firstGroup])[0];
 
 	for(g in elements) {
 		for (i in elements[g]) {
@@ -54,7 +54,7 @@ requirejs([
 			properties  : properties,
 			sassCompile : new Sass(),
 			
-			projectTitle : '',
+			projectTitle : 'New Style Guide',
 			themeColor	: '#5299E0',
 			themeLogo	: '',
 			themeColorPicker : false,

@@ -76,5 +76,7 @@ $c-edit-hl-5    : var(--c-edit-hl-5);
 
 $f-edit: Consolas, "Courier New", monospace;
 $f-default: Helvetica, Arial, sans-serif;
+$f-title: 'NTR';
+@import url('https://fonts.googleapis.com/css?family=#{$f-title}');
 
 $outline: 2px solid $c-prim-comp;
