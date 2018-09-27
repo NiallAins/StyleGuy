@@ -105,22 +105,22 @@ Vue.component('color-picker', {
 					<div class="cursor" :style="{top: y + '%', left: x + '%'}"></div>
 				</div>
 				<input
-					class		="hue-slider"
-					type		="range"
-					v-model		="h"
-					min			="0"
-					max			="360"
+					class	="hue-slider"
+					type	="range"
+					v-model	="h"
+					min		="0"
+					max		="360"
 					@input	="syncFrom('hsl')" 
 				/>
 				<div class="alpha-contain">
 					<input
-						class		="alpha-slider"
-						type		="range"
-						v-model		="a"
-						min			="0"
-						max			="1"
-						step		="0.02"
-						:style="{
+						class	="alpha-slider"
+						type	="range"
+						v-model	="a"
+						min		="0"
+						max		="1"
+						step	="0.02"
+						:style	="{
 							background  : 'linear-gradient(to right, transparent, ' + this.value.substr(0, 7) + ')',
 							borderColor : this.value.substr(0, 7)
 						}"

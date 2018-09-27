@@ -1,0 +1,6 @@
+show hex on hover
+show sample
+allow base color selection
+Toggle varients
+name theme
+ink in color page

@@ -9,8 +9,8 @@ requirejs(['lib/highlight'], function(highlight) {
                 ]"
             >
                 <p v-if="wrapSelector">
-                    <em hl-1>{{ wrapSelector }}</em>
-                    <em hl-0>{</em>
+                    <em class="hljs-selector-tag">{{ wrapSelector }}</em>
+                    <em class="hljs-selector-attr">{</em>
                 </p>
                 <textarea
                     ref         ="textarea"
@@ -55,7 +55,7 @@ requirejs(['lib/highlight'], function(highlight) {
                     ></div>
                 </div>
                 <p v-if="wrapSelector">
-                    <em hl-0>}</em>
+                    <em class="hljs-selector-attr">}</em>
                 </p>
             </code>
         `,

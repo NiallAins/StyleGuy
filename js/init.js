@@ -8,7 +8,7 @@ requirejs.config({
 });
 
 //Global Variables
-let App, EventHub;
+let EventHub;
 
 requirejs([
     'comp/dropdown',
@@ -17,6 +17,7 @@ requirejs([
     'comp/font-editor',
     'comp/font-page',
     'comp/color-picker',
+    'comp/palette-picker',
     'comp/color-page',
     'comp/ui-editor',
     'comp/element-editor',

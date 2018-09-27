@@ -40,13 +40,13 @@ requirejs([
 
 	EventHub = new Vue();
 
-	App = new Vue({
+	new Vue({
 		el: '[app]',
 		data: {
 			loaded 		: false,
 			cssmin 		: '',
 			sassInject 	: '',
-			tab 		: 'project',
+			tab 		: 'edit',
 			menuGroup 	: firstGroup,
 			menuItem 	: firstItem,
 			page 		: elements[firstGroup][firstItem],
@@ -58,7 +58,9 @@ requirejs([
 			themeColor	: '#5299E0',
 			themeLogo	: '',
 			themeColorPicker : false,
-			themeEditor	: 'dark'
+			themeEditor	: 'dark',
+
+			palette : []
 		},
 		created : function() {
 			this.generateCss();

@@ -10,7 +10,7 @@ Vue.component('color-page', {
 					:class	="{ selected : editing === index }"
 				>
 					<div class="col-3 c-ref">
-						--<input
+						{{ editable ? '$' : '--' }}<input
 							type		="text" 
 							placeholder	="color name"
 							v-model		="color.ref"
@@ -50,7 +50,7 @@ Vue.component('color-page', {
 							"
 						>
 							<span v-show="editing !== index">
-								<i class="add"></i> Add Copy
+								<i class="add"></i> Copy
 							</span>
 							<span v-show="editing === index">
 								<i class="accept"></i> Save
@@ -80,6 +80,12 @@ Vue.component('color-page', {
 					>
 						<i class="add"></i> Add color
 					</button>
+					<button 
+						class	="sty-btn"
+						@click	="paletteOpen = true"
+					>
+						<i class="edit"></i> Create palette
+					</button>
 				</div>
 			</div>
 			<color-picker
@@ -88,7 +94,11 @@ Vue.component('color-page', {
 				:style			="{ top: (editing * 80) + 42 + 'px' }"
 				:hideControls	="true"
 				:disableBackdrop="true"
-			></color-picker>
+			/>
+			<palette-picker
+				v-if	="paletteOpen"
+				@close  ="addPalette"
+			/>
 		</div>
 	`,
 	props: [
@@ -99,6 +109,7 @@ Vue.component('color-page', {
 		return {
 			editing 	: -1,
 			pickerColor : '',
+			paletteOpen : false,
 			undoRef 	: '',
 			undoHex 	: '',
 			newCol 		: false
@@ -148,6 +159,13 @@ Vue.component('color-page', {
 			});
 			this.newCol = true;
 			this.editing = i - 1;
+		},
+		addPalette : function(palette) {
+			this.paletteOpen = false;
+			for (let c in palette) {
+				this.addColor(null, c, palette[c]);
+			}
+			this.editing = -1;
 		},
 		deleteColor : function(i) {
 			this.editing = -1;
