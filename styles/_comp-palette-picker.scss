@@ -132,54 +132,28 @@
     }
 
     table {
-        margin: 28px 0 0 20px;
+        margin: -20px 0 0 20px;
         border-collapse: collapse;
 
-        tr:first-child {
-            td:first-child {
-                border-top-left-radius: 4px;
-            }
-            td:last-child {
-                border-top-right-radius: 4px;
-            }
-        }
-        tr:last-child {
-            td:not(.inactive):first-of-type  {
-                border-bottom-left-radius: 4px;
-            }
-            td:not(.inactive):last-of-type {
-                border-bottom-right-radius: 4px;
-            }
-        }
         td {
             position: relative;
             display: inline-block;
             width: 50px;
             height: 60px;
-            transition: background-color 0.2s;
+            line-height: 60px;
 
-            
             &.inactive {
                 background-color: white !important;
-
-                i {
-                    transform: scale(0.8);
-
-                    &:before,
-                    &:after {
-                        background-color: $c-text;
-                    }
-                }
-
-                span {
-                    opacity: 0;
-                }
+                box-shadow: 0 0 1px 0 $c-disabled
             }
 
             i {
                 transform: scale(0.8) rotate(45deg);
-                opacity: 0;
-                transition: all 0.2s;
+                transition: transform 0.2s;
+
+                &.inactive {
+                    transform: scale(0.8);
+                }
             }
 
             span {
@@ -208,25 +182,42 @@
                 }
             }
 
-            &:hover {
-                &:not(.inactive) span {
-                    opacity: 1;
-                }
-                i {
-                    opacity: 0.7;
-
-                    &:hover {
-                        opacity: 1;
-                        cursor: pointer;
-                    }
-                }
+            &:hover:not(.inactive) span {
+                opacity: 1;
             }
         }
-        td:nth-child(3) {
+        td:nth-child(4) {
             width: 100px;
         }
+        td:first-child {
+            width: 30px;
+        }
         tr:first-child td {
+            height: 50px;
+        }
+        tr:nth-child(2) td {
             height: 110px;
+            line-height: 110px; 
+        }
+
+        tr:not(:first-child):hover .del {
+            opacity: 1;
+        }
+
+        .del {
+            text-align: center;
+            opacity: 0;
+
+            i {
+                transform: scale(0.8) rotate(45deg);
+                vertical-align: middle;
+                opacity: 0.4;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
         }
     }
 }

@@ -47,17 +47,42 @@ Vue.component('palette-picker', {
 							@input  ="genPalette"
 						/>
 					</div>
-					<table class="col colors">
-						<tr v-for="type in types">
-							<td
-								v-for	="varient in varients"
-								:style	="{ backgroundColor: palette[type + (varient ? '-' + varient : '')] }"
-								:class	="{ inactive : inactive.indexOf(type + (varient ? '-' + varient : '')) > -1}"
+					<table
+						class		="col colors"
+						mouseleave	="colHover = null"
+					>
+						<tr>
+							<td></td>
+							<td class		="del"
+								v-for 		="varient in varients"
+								:style		="{ opacity: (colHover === varient ? 1 : 0) }"
+								@mouseover	="colHover = varient"
 							>
-								<i
-									class="add clear"
-									@click="activeToggle(type + (varient ? '-' + varient : ''))"
+								<i	class	="add"
+									:class	="{ inactive : inactive[varient] }"
+									v-if	="
+										varient === 'darker' ||
+										varient === 'lighter' ||
+										(varient === 'dark' && inactive.darker) ||
+										(varient === 'light' && inactive.lighter)
+									"
+									@click	="inactive[varient] = !inactive[varient]"
 								></i>
+							</td>
+						</tr>
+						<tr v-for="type in types">
+							<td class="del">
+								<i	class	="add"
+									:class	="{ inactive : inactive[type] }"
+									v-if 	="type === 'tert' || (type === 'sec' && inactive.tert)"
+									@click	="inactive[type] = !inactive[type]"
+								></i>
+							</td>
+							<td v-for		="varient in varients"
+								:style		="{ backgroundColor: palette[type + (varient ? '-' + varient : '')] }"
+								:class		="{ inactive : inactive[type] || inactive[varient] }"
+								@mouseover	="colHover = varient"
+							>
 								<span>{{ fullType[type] }} {{ varient }}</span>
 							</td>
 						</tr>
@@ -108,7 +133,14 @@ Vue.component('palette-picker', {
 				'tert-dark': 	'#00c',
 				'tert-darker': 	'#006'
 			},
-			inactive: [],
+			inactive: {
+				'sec' 		: false,
+				'tert' 		: false,
+				'darker'	: false,
+				'dark' 		: false,
+				'lighter'	: false,
+				'light' 	: false
+			},
 			types: [
 				'prim',
 				'sec',
@@ -131,7 +163,8 @@ Vue.component('palette-picker', {
 				{ x: 0, y: 0 },
 				{ x: 0, y: 0 },
 				{ x: 0, y: 0 }
-			]
+			],
+			colHover: null
 		}
 	},
 	created : function() {
@@ -204,57 +237,59 @@ Vue.component('palette-picker', {
 			});
 
 		},
-		activeToggle: function(col) {
-			let pos = this.inactive.indexOf(col);
-			if (pos === -1) {
-				this.inactive.push(col);
-			} else {
-				this.inactive.splice(pos, 1);
-			}
-		},
 		close : function(save) {
 			if (save) {
 				let palHex = {};
 
 				for(let c in this.palette) {
-					let hueToRGB = (p, q, t) => {
-						if (t < 0) t += 1;
-						if (t > 1) t -= 1;
-						if (t < 1/6) return p + (q - p) * 6 * t;
-						if (t < 1/2) return q;
-						if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-						return p;
+					let skip = false;
+					for (state in this.inactive) {
+						if (this.inactive[state] && c.indexOf(state) !== -1) {
+							skip = true;
+							break;
+						}
 					}
 
-					let ch = parseInt(this.palette[c].match(/\(([0-9-]*),/)[1]),
-						cs = parseInt(this.palette[c].match(/, ([0-9-]*)%,/)[1]),
-						cl = parseInt(this.palette[c].match(/, ([0-9-]*)%\)/)[1]);
+					if (!skip) {
+						let hueToRGB = (p, q, t) => {
+							if (t < 0) t += 1;
+							if (t > 1) t -= 1;
+							if (t < 1/6) return p + (q - p) * 6 * t;
+							if (t < 1/2) return q;
+							if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+							return p;
+						}
 
-					let r, g, b,
-						rh = ch / 360,
-						rs = cs / 100,
-						rl = cl / 100;
+						let ch = parseInt(this.palette[c].match(/\(([0-9-]*),/)[1]),
+							cs = parseInt(this.palette[c].match(/, ([0-9-]*)%,/)[1]),
+							cl = parseInt(this.palette[c].match(/, ([0-9-]*)%\)/)[1]);
 
-					if (cs === 0){
-						r = g = b = rl;
-					} else {
-						let q = rl < 0.5 ? rl * (1 + rs) : rl + rs - rl * rs;
-						let p = 2 * rl - q;
-						r = hueToRGB(p, q, rh + 1/3);
-						g = hueToRGB(p, q, rh);
-						b = hueToRGB(p, q, rh - 1/3);
+						let r, g, b,
+							rh = ch / 360,
+							rs = cs / 100,
+							rl = cl / 100;
+
+						if (cs === 0){
+							r = g = b = rl;
+						} else {
+							let q = rl < 0.5 ? rl * (1 + rs) : rl + rs - rl * rs;
+							let p = 2 * rl - q;
+							r = hueToRGB(p, q, rh + 1/3);
+							g = hueToRGB(p, q, rh);
+							b = hueToRGB(p, q, rh - 1/3);
+						}
+
+						palHex[c] = '#' + (
+							[
+								Math.round(r * 255),
+								Math.round(g * 255),
+								Math.round(b * 255)
+							].map(c => {
+								c = c.toString(16);
+								return c.length < 2 ? '0' + c : c;
+							}).join('')
+						);
 					}
-
-					palHex['c-' + c] = '#' + (
-						[
-							Math.round(r * 255),
-							Math.round(g * 255),
-							Math.round(b * 255)
-						].map(c => {
-							c = c.toString(16);
-							return c.length < 2 ? '0' + c : c;
-						}).join('')
-					);
 				}
 				this.$emit('close', palHex);
 			} else {
