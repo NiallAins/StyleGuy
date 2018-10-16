@@ -19,3 +19,4 @@ If you would like a less continuous integration of styles, this css can similer 
 
 # Development
 StyleGuy is devleoped in Vue.js with require.js for module and component control.
+There is no build process nessicary, just run from the root folder.
